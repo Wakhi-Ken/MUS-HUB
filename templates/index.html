@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}MUS-HUB | Home{% endblock %}
+
+{% block content %}
+<h2>Welcome, {{ username }}!</h2>
+
+<a href="{{ url_for('profile', username=username) }}">Go to Profile</a>
+
+<!-- Flash Messages -->
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul>
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+{% endwith %}
+
+<!-- Latest Updates Section -->
+<h2>Latest Updates</h2>
+<ul>
+    {% for upload in uploads %}
+        <li>
+            <h3>{{ upload.title }}</h3>
+            <p>{{ upload.description }}</p>
+            <p>Uploaded by: <a href="{{ url_for('profile', username=upload.username) }}">{{ upload.username }}</a></p>
+            
+            <!-- Comment Form -->
+            <form method="POST" action="{{ url_for('comment', upload_id=upload.id) }}">
+                <textarea name="comment" placeholder="Leave a comment..."></textarea>
+                <button type="submit">Comment</button>
+            </form>
+            
+            <!-- Display Comments -->
+            <h4>Comments:</h4>
+            <ul>
+                {% for comment in upload.comments %}
+                    <li>{{ comment.user.username }}: {{ comment.text }}</li>
+                {% endfor %}
+            </ul>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}
