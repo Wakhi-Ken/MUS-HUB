@@ -1,0 +1,18 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 30px;
+    background-color: #f0f0f0;
+}
+h2, h3 {
+    color: #333;
+}
+form input, form textarea, form button {
+    display: block;
+    margin-bottom: 10px;
+}
+a {
+    margin-right: 10px;
+}
+ul {
+    color: red;
+}
