@@ -9,7 +9,7 @@ body {
     justify-content: center;
     align-items: center;
     background-color: #8B4513; /* Brown color */
-    background-image: url('https://static.vecteezy.com/system/resources/previews/031/727/049/non_2x/cultural-diversity-through-music-world-music-day-celebrations-photo.jpg');
+    background-image: url('https://images.unsplash.com/uploads/1412282232015a06e258a/4bdd2a58?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8bXVzaWMlMjBiYWNrZ3JvdW5kfGVufDB8fDB8fHww');
     background-size: cover;
     background-position: center;
     animation: fade 5s infinite alternate;
