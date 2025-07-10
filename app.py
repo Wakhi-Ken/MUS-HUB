@@ -26,7 +26,7 @@ class Content(db.Model):
     FilePath = db.Column(db.String(200), nullable=False)
     UploadDate = db.Column(db.DateTime, default=datetime.utcnow)
 
-    user = db.relationship('User', backref='contents')  # <---- Added relationship here
+    user = db.relationship('User', backref='contents')
 
 class Comment(db.Model):
     CommentID = db.Column(db.Integer, primary_key=True)
@@ -108,7 +108,6 @@ def index():
 
     for content in contents:
         content.comments = Comment.query.filter_by(ContentID=content.ContentID).order_by(Comment.CommentDate).all()
-        # No need to manually add uploader; use content.user in templates
 
     return render_template('index.html', username=username, contents=contents)
 
@@ -210,21 +209,23 @@ def public_profile(user_id):
 # ----------- Search Route -----------
 @app.route('/search')
 def search():
+    user_id = session.get('user_id')
+    if not user_id:
+        flash("Please log in to use the search function.")
+        return redirect(url_for('login'))
+
     query = request.args.get('q', '').strip()
     if not query:
         flash("Please enter a search term.")
         return redirect(url_for('index'))
 
-    # Search users by username or role (case-insensitive)
     users = User.query.filter(
         (User.Username.ilike(f'%{query}%')) |
         (User.Role.ilike(f'%{query}%'))
     ).all()
 
-    # Search uploads by filename (case-insensitive)
     uploads = Content.query.filter(Content.FilePath.ilike(f'%{query}%')).all()
 
-    # Attach uploader info to each upload for display
     for upload in uploads:
         upload.user = User.query.get(upload.UserID)
 
@@ -232,4 +233,5 @@ def search():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
 
