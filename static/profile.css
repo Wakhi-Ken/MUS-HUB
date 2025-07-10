@@ -1,0 +1,60 @@
+/* profile.css */
+
+/* Set the same background properties as base.css */
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #8B4513; /* Brown color */
+    background-image: url('https://static.vecteezy.com/system/resources/previews/031/727/049/non_2x/cultural-diversity-through-music-world-music-day-celebrations-photo.jpg');
+    background-size: cover;
+    background-position: center;
+    animation: fade 5s infinite alternate;
+}
+
+@keyframes fade {
+    0% {
+        background-color: #8B4513; /* Dark brown */
+        opacity: 1;
+    }
+    100% {
+        background-color: #A0522D; /* Lighter brown */
+        opacity: 0.8;
+    }
+}
+
+/* Header and main title styles */
+h2, h3 {
+    color: white;
+    text-align: center;
+    margin: 20px 0;
+}
+
+/* Paragraph styles */
+p {
+    color: white;
+    text-align: center;
+    margin: 10px 0;
+}
+
+/* Link styles */
+a {
+    display: block;
+    text-align: center;
+    color: #FFD700; /* Gold color for links */
+    font-size: 20px;
+    margin: 10px 0;
+    text-decoration: none;
+    padding: 10px;
+    border: 2px solid #FFD700; /* Border for better visibility */
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+a:hover {
+    background-color: rgba(255, 255, 255, 0.3); /* Light background on hover */
+    color: #8B4513; /* Change text color on hover */
+}

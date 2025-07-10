@@ -21,7 +21,7 @@ def register():
         users[user_id] = {'Username': username, 'Email': email, 'Password': password, 'Role': role}
         session['user_id'] = user_id
         flash("Registration successful! Please complete your profile.")
-        return redirect(url_for('profile', user_id=user_id))
+        return redirect(url_for('profile'))
     
     return render_template('register.html')
 
@@ -41,16 +41,18 @@ def profile():
 @app.route('/')
 def index():
     user_id = session.get('user_id')
-    username = users[user_id]['Username'] if user_id and user_id in users else 'Guest'
+    username = users[user_id]['Username'] if user_id in users else 'Guest'
     return render_template('index.html', username=username)
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
         if 'file' not in request.files:
+            flash("No file part")
             return redirect(request.url)
         file = request.files['file']
         if file.filename == '':
+            flash("No selected file")
             return redirect(request.url)
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
         flash("File uploaded successfully!")
@@ -58,6 +60,12 @@ def upload_file():
     
     user_id = session.get('user_id')
     return render_template('upload.html', user_id=user_id)
+
+@app.route('/logout')
+def logout():
+    session.pop('user_id', None)  # Remove user_id from session
+    flash("You have been logged out.")
+    return redirect(url_for('index'))  # Redirect to the homepage
 
 if __name__ == '__main__':
     app.run(debug=True)

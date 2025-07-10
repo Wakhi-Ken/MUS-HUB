@@ -8,7 +8,7 @@
 <!-- Flash Messages -->
 {% with messages = get_flashed_messages() %}
     {% if messages %}
-        <ul>
+        <ul class="flashes">
         {% for message in messages %}
             <li>{{ message }}</li>
         {% endfor %}
@@ -19,3 +19,6 @@
 <h2>Latest Updates</h2>
 <!-- Add your uploads display logic here -->
 {% endblock %}
+
+<!-- Link to index.css -->
+<link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">

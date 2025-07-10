@@ -1,0 +1,71 @@
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #8B4513; /* Brown color */
+    background-image: url('https://static.vecteezy.com/system/resources/previews/031/727/049/non_2x/cultural-diversity-through-music-world-music-day-celebrations-photo.jpg');
+    background-size: cover;
+    background-position: center;
+    animation: fade 5s infinite alternate;
+}
+
+@keyframes fade {
+    0% {
+        background-color: #8B4513;
+        opacity: 1;
+    }
+    100% {
+        background-color: #A0522D; /* Lighter brown */
+        opacity: 0.8;
+    }
+}
+
+header {
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+    background-color: rgba(139, 69, 19, 0.8); /* Semi-transparent brown */
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+.flashes {
+    color: red;
+    list-style-type: none;
+    padding: 0;
+}
+
+main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+footer {
+    padding: 10px;
+    text-align: center;
+    background-color: rgba(139, 69, 19, 0.8); /* Semi-transparent brown */
+}
