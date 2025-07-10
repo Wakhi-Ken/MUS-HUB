@@ -18,6 +18,7 @@ class User(db.Model):
     Password = db.Column(db.String(200), nullable=False)
     Role = db.Column(db.String(20), nullable=False)
     Bio = db.Column(db.String(500))
+    comments = db.relationship('Comment', backref='author', lazy=True)
 
 class Content(db.Model):
     ContentID = db.Column(db.Integer, primary_key=True)
@@ -31,9 +32,10 @@ class Comment(db.Model):
     UserID = db.Column(db.Integer, db.ForeignKey('user.UserID'), nullable=False)
     CommentText = db.Column(db.Text, nullable=False)
     CommentDate = db.Column(db.DateTime, default=datetime.utcnow)
-    user = db.relationship('User')  # For access to comment.user.Username
+    user = db.relationship('User')  # For displaying commenter name
 
 # -------------------- Routes --------------------
+
 @app.route('/initdb')
 def init_db():
     db.create_all()
@@ -74,10 +76,17 @@ def profile():
     user_id = session.get('user_id')
     if user_id is None:
         return redirect(url_for('login'))
+    
     user = User.query.get(user_id)
+
     if request.method == 'POST':
-        user.Bio = request.form.get('bio', user.Bio)
-        db.session.commit()
+        bio = request.form.get('bio')
+        if bio is not None:
+            user.Bio = bio
+            db.session.commit()
+            flash("Bio updated successfully!")
+        return redirect(url_for('profile'))
+    
     return render_template('profile.html', user=user)
 
 @app.route('/')

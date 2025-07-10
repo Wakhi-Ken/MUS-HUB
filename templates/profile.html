@@ -3,12 +3,45 @@
 
 {% block content %}
 <h2>{{ user.Username }}'s Profile</h2>
-<p>Email: {{ user.Email }}</p>
-<p>Bio: <!-- Add bio if available --></p>
+<p><strong>Email:</strong> {{ user.Email }}</p>
+
+<!-- Bio Display & Edit -->
+<h3>Bio:</h3>
+{% if user.Bio %}
+    <p>{{ user.Bio }}</p>
+{% else %}
+    <p><em>No bio set yet.</em></p>
+{% endif %}
+
+<!-- Bio Update Form -->
+<form action="{{ url_for('profile') }}" method="POST">
+    <label for="bio">Update Your Bio:</label><br>
+    <textarea name="bio" id="bio" rows="5" cols="50" placeholder="Write something about yourself...">{{ user.Bio or '' }}</textarea><br><br>
+    <button type="submit">Update Bio</button>
+</form>
+
+<!-- Flash Messages -->
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul class="flashes">
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+{% endwith %}
+
+<!-- User Comments -->
 <h3>Your Comments</h3>
 <ul>
-    <!-- Add user comments logic here -->
+    {% for comment in user.comments %}
+        <li>{{ comment.CommentText }} 
+        <small>on {{ comment.CommentDate.strftime('%Y-%m-%d %H:%M:%S') }}</small></li>
+    {% else %}
+        <li>No comments yet.</li>
+    {% endfor %}
 </ul>
+
 <a href="{{ url_for('logout') }}">Logout</a>
 {% endblock %}
 
