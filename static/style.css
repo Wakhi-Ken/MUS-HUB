@@ -1,219 +1,43 @@
-/* Global Styles and Background */
 body {
     font-family: Arial, sans-serif;
-    background: url('https://static.vecteezy.com/system/resources/previews/031/727/049/non_2x/cultural-diversity-through-music-world-music-day-celebrations-photo.jpg') no-repeat center center fixed;
-    background-size: cover;
-    color: white;
     margin: 0;
     padding: 0;
-    animation: fadeInBody 1s ease-in;
+    background-color: #f4f4f4;
 }
 
-@keyframes fadeInBody {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-.container {
-    max-width: 900px;
-    margin: 30px auto;
-    padding: 20px 30px;
-    background-color: rgba(0, 0, 0, 0.75);
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-    animation: slideUp 0.8s ease-out;
-}
-
-@keyframes slideUp {
-    from { transform: translateY(30px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-}
-
-/* Responsive Text Sizes */
-h1 {
-    font-size: 3rem;
-    margin: 10px 0;
-}
-
-h2 {
-    font-size: 2.2rem;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #444;
-    padding-bottom: 5px;
-}
-
-h3 {
-    font-size: 1.6rem;
-    margin: 15px 0;
-}
-
-h4 {
-    font-size: 1.3rem;
-    margin-top: 15px;
-    color: #ccc;
-}
-
-@media (max-width: 600px) {
-    h1 { font-size: 2rem; }
-    h2 { font-size: 1.8rem; }
-    h3 { font-size: 1.4rem; }
-    h4 { font-size: 1.1rem; }
-    .container { padding: 15px; }
-}
-
-/* Forms */
-input[type="text"],
-input[type="password"],
-input[type="email"],
-textarea {
-    width: 100%;
-    max-width: 400px;
-    padding: 12px;
-    margin: 10px 0;
-    border: none;
-    border-radius: 6px;
-    font-size: 1rem;
-    background-color: rgba(255, 255, 255, 0.9);
-    color: #333;
-    transition: box-shadow 0.3s, transform 0.2s;
-}
-
-input:focus,
-textarea:focus {
-    outline: none;
-    box-shadow: 0 0 8px #17a2b8;
-    transform: scale(1.02);
-}
-
-textarea {
-    resize: none;
-    height: 120px;
-}
-
-button {
-    width: 100%;
-    max-width: 420px;
-    padding: 12px;
-    margin-top: 10px;
-    border: none;
-    border-radius: 6px;
-    background-color: #28a745;
-    color: white;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
-}
-
-button:hover {
-    background-color: #218838;
-    transform: translateY(-2px);
-}
-
-button:active {
-    transform: translateY(0);
-}
-
-/* Auth Pages (Register / Login) */
-.auth-container {
+header {
+    background: #333;
+    color: #fff;
+    padding: 10px 0;
     text-align: center;
-    margin-top: 80px;
-    animation: fadeInBody 1s ease-in;
 }
 
-.form-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-/* Links */
-a {
-    color: #ffffff;
-    text-decoration: none;
-    margin-top: 10px;
-    display: inline-block;
-    transition: color 0.3s, transform 0.2s;
-}
-
-a:hover {
-    text-decoration: underline;
-    color: #17a2b8;
-    transform: scale(1.05);
-}
-
-/* Flash Messages */
-ul {
-    list-style-type: none;
+nav ul {
+    list-style: none;
     padding: 0;
 }
 
-ul li.flash-success {
-    background-color: rgba(40, 167, 69, 0.2);
-    border-left: 4px solid #28a745;
-    padding: 10px;
-    margin-bottom: 8px;
-    border-radius: 4px;
-    animation: fadeInBody 0.5s ease-in;
+nav ul li {
+    display: inline;
+    margin: 0 15px;
 }
 
-ul li.flash-danger {
-    background-color: rgba(220, 53, 69, 0.2);
-    border-left: 4px solid #dc3545;
-    padding: 10px;
-    margin-bottom: 8px;
-    border-radius: 4px;
-    animation: fadeInBody 0.5s ease-in;
+nav a {
+    color: #fff;
+    text-decoration: none;
 }
 
-ul li.flash-info {
-    background-color: rgba(23, 162, 184, 0.2);
-    border-left: 4px solid #17a2b8;
-    padding: 10px;
-    margin-bottom: 8px;
-    border-radius: 4px;
-    animation: fadeInBody 0.5s ease-in;
+main {
+    padding: 20px;
 }
 
-/* Uploads & Comment Section */
-ul li.upload-item {
-    margin-bottom: 20px;
-    padding: 15px;
-    background-color: rgba(255, 255, 255, 0.05);
-    border-radius: 6px;
-    transition: transform 0.3s;
+footer {
+    text-align: center;
+    padding: 10px 0;
+    background: #333;
+    color: #fff;
 }
 
-ul li.upload-item:hover {
-    transform: scale(1.02);
-}
-
-ul li h3 {
-    margin-top: 0;
-}
-
-.comment {
-    margin-top: 10px;
-    padding: 10px;
-    border: 1px solid #fff;
-    border-radius: 6px;
-    background-color: rgba(255, 255, 255, 0.1);
-    animation: slideUp 0.5s ease-out;
-}
-
-ul li textarea {
-    width: 95%;
-    background-color: rgba(255, 255, 255, 0.9);
-    color: #333;
-    margin-top: 5px;
-}
-
-form {
-    margin-bottom: 20px;
-}
-
-label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-    color: #ddd;
+.flashes {
+    color: red;
 }
