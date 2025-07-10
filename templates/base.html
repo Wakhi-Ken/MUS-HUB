@@ -1,41 +1,182 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MUS-HUB</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MUS-HUB</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}" />
+  <style>
+    /* Minimal CSS for hamburger and nav toggle - will override/add to base.css */
+
+    /* Container */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 15px;
+    }
+
+    /* Header flex layout */
+    .site-header .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    /* Logo styling */
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: white;
+    }
+
+    /* Nav list */
+    .nav-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav-list li a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 8px 10px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .nav-list li a:hover,
+    .nav-list li a:focus {
+      background-color: rgba(255 255 255 / 0.2);
+    }
+
+    /* Hamburger button - hidden on desktop */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      width: 28px;
+      height: 22px;
+      justify-content: space-between;
+    }
+
+    .hamburger span {
+      display: block;
+      height: 3px;
+      background-color: white;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    /* Mobile styles */
+    @media (max-width: 768px) {
+      .nav-list {
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background-color: rgba(139, 69, 19, 0.95);
+        flex-direction: column;
+        width: 200px;
+        padding: 15px 10px;
+        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        transform: translateX(100%);
+        transition: transform 0.3s ease-in-out;
+        pointer-events: none;
+        user-select: none;
+        z-index: 1000;
+      }
+
+      .nav-list.active {
+        transform: translateX(0);
+        pointer-events: auto;
+        user-select: auto;
+      }
+
+      .nav-list li {
+        margin: 12px 0;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>MUS-HUB</h1>
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/upload">Upload</a></li>
-                {% if 'user_id' in session %}
-                    <li><a href="{{ url_for('profile') }}">Profile</a></li>
-                    <li><a href="{{ url_for('logout') }}">Logout</a></li>
-                {% else %}
-                    <li><a href="/register">Register</a></li>
-                {% endif %}
-            </ul>
-        </nav>
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                <ul class="flashes">
-                    {% for message in messages %}
-                        <li>{{ message }}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-        {% endwith %}
-    </header>
-    <main>
-        {% block content %}{% endblock %}
-    </main>
-    <footer>
-        <p>&copy; 2025 MUS-HUB</p>
-    </footer>
+  <header class="site-header">
+    <div class="container">
+      <h1 class="logo">MUS-HUB</h1>
+
+      <!-- Hamburger button -->
+      <div class="hamburger" id="hamburger" aria-label="Toggle navigation" tabindex="0" role="button">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <nav>
+        <ul class="nav-list" id="nav-list">
+          <li><a href="/">Home</a></li>
+          <li><a href="/upload">Upload</a></li>
+          {% if 'user_id' in session %}
+            <li><a href="{{ url_for('profile') }}">Profile</a></li>
+            <li><a href="{{ url_for('logout') }}">Logout</a></li>
+          {% else %}
+            <li><a href="/register">Register</a></li>
+          {% endif %}
+        </ul>
+      </nav>
+    </div>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class="flashes">
+          {% for message in messages %}
+            <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+  </header>
+
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2025 MUS-HUB</p>
+  </footer>
+
+  <script>
+    // Toggle nav menu on hamburger click
+    const hamburger = document.getElementById('hamburger');
+    const navList = document.getElementById('nav-list');
+
+    function toggleMenu() {
+      navList.classList.toggle('active');
+      hamburger.classList.toggle('active');
+    }
+
+    hamburger.addEventListener('click', toggleMenu);
+    hamburger.addEventListener('keypress', (e) => {
+      if(e.key === 'Enter' || e.key === ' ') {
+        toggleMenu();
+      }
+    });
+
+    // Optional: Close menu on nav link click (mobile)
+    document.querySelectorAll('.nav-list a').forEach(link => {
+      link.addEventListener('click', () => {
+        if(navList.classList.contains('active')) {
+          toggleMenu();
+        }
+      });
+    });
+  </script>
 </body>
 </html>

@@ -1,22 +1,27 @@
 /* register.css */
 
-/* Set the same background properties as base.css */
+/* Background with fade animation */
 body {
     margin: 0;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
+    flex-direction: column;      /* vertical layout */
     justify-content: center;
     align-items: center;
-    background-color: #8B4513; /* Brown color */
+    background-color: #8B4513; /* Dark Brown */
     background-image: url('https://images.unsplash.com/uploads/1412282232015a06e258a/4bdd2a58?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8bXVzaWMlMjBiYWNrZ3JvdW5kfGVufDB8fDB8fHww');
     background-size: cover;
     background-position: center;
-    animation: fade 5s infinite alternate;
+    animation: fade 6s ease-in-out infinite alternate;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 @keyframes fade {
     0% {
-        background-color: #8B4513; /* Dark brown */
+        background-color: #8B4513;
         opacity: 1;
     }
     100% {
@@ -25,44 +30,81 @@ body {
     }
 }
 
+/* Center container for auth form */
 .auth-container {
+    width: 100%;
+    max-width: 400px;
     text-align: center;
-    color: white;
+    display: flex;
+    flex-direction: column;     /* vertical stack */
+    gap: 25px;                  /* space between sections */
 }
 
+/* Headings */
 h1, h2 {
     margin: 10px 0;
+    font-weight: 700;
 }
 
+/* Form styling */
 .form-container {
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background for form */
-    padding: 20px;
-    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.55); /* Slightly more opaque */
+    padding: 30px 25px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.6);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
+/* Form labels stacked vertically */
 label {
     display: block;
-    margin: 10px 0 5px;
+    margin-bottom: 8px;
+    font-weight: 600;
+    text-align: left;
 }
 
-input, select {
+/* Inputs and selects full width */
+input, select, textarea {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
+    padding: 12px 10px;
+    margin-bottom: 0;
     border: none;
-    border-radius: 5px;
+    border-radius: 6px;
+    font-size: 1rem;
+    box-sizing: border-box;
 }
 
+/* Button styling */
 button {
     width: 100%;
-    padding: 10px;
-    background-color: #FFD700; /* Gold color for button */
+    padding: 12px;
+    background-color: #FFD700; /* Gold */
     border: none;
-    border-radius: 5px;
+    border-radius: 6px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    transition: background-color 0.3s ease;
 }
 
 button:hover {
-    background-color: #FFC107; /* Slightly darker on hover */
+    background-color: #FFC107; /* Slightly darker gold */
+}
+
+/* Responsive for smaller devices */
+@media (max-width: 480px) {
+    .auth-container {
+        max-width: 90%;
+    }
+
+    .form-container {
+        padding: 20px 15px;
+    }
+
+    button {
+        font-size: 1rem;
+        padding: 10px;
+    }
 }

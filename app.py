@@ -32,7 +32,7 @@ class Comment(db.Model):
     UserID = db.Column(db.Integer, db.ForeignKey('user.UserID'), nullable=False)
     CommentText = db.Column(db.Text, nullable=False)
     CommentDate = db.Column(db.DateTime, default=datetime.utcnow)
-    user = db.relationship('User')  # For displaying commenter name
+    user = db.relationship('User')
 
 # -------------------- Routes --------------------
 
@@ -76,7 +76,7 @@ def profile():
     user_id = session.get('user_id')
     if user_id is None:
         return redirect(url_for('login'))
-    
+
     user = User.query.get(user_id)
 
     if request.method == 'POST':
@@ -86,8 +86,10 @@ def profile():
             db.session.commit()
             flash("Bio updated successfully!")
         return redirect(url_for('profile'))
-    
-    return render_template('profile.html', user=user)
+
+    uploads = Content.query.filter_by(UserID=user_id).all()
+
+    return render_template('profile.html', user=user, user_uploads=uploads)
 
 @app.route('/')
 def index():
@@ -139,6 +141,28 @@ def add_comment(content_id):
         db.session.commit()
         flash("Comment added!")
     return redirect(url_for('index'))
+
+@app.route('/delete/<int:content_id>', methods=['POST'])
+def delete_upload(content_id):
+    user_id = session.get('user_id')
+    if not user_id:
+        flash("Login required.")
+        return redirect(url_for('login'))
+
+    content = Content.query.get(content_id)
+
+    if content and content.UserID == user_id:
+        file_path = os.path.join(app.config['UPLOAD_FOLDER'], content.FilePath)
+        if os.path.exists(file_path):
+            os.remove(file_path)
+
+        db.session.delete(content)
+        db.session.commit()
+        flash("Upload deleted.")
+    else:
+        flash("Unauthorized or content not found.")
+
+    return redirect(url_for('profile'))
 
 @app.route('/logout')
 def logout():
