@@ -67,3 +67,64 @@ a:hover {
     padding: 10px;
     border-radius: 5px;
 }
+
+/* Upload display styles */
+.upload {
+    background-color: rgba(255, 255, 255, 0.9); /* Light background for uploads */
+    border: 1px solid #8B4513; /* Dark brown border */
+    border-radius: 5px;
+    padding: 15px;
+    margin: 15px 0;
+    width: 80%; /* Set width for uploads */
+    text-align: left; /* Align text to the left */
+}
+
+.upload h3 {
+    color: #8B4513; /* Dark brown for file titles */
+}
+
+.upload p {
+    font-size: 14px; /* Smaller font for dates */
+    color: #555; /* Gray color for dates */
+}
+
+.upload h4 {
+    margin-top: 10px; /* Space above comments */
+    color: #8B4513; /* Dark brown for comments */
+}
+
+/* Comment styles */
+.upload ul {
+    list-style-type: none; /* Remove bullet points */
+    padding: 0;
+}
+
+.upload ul li {
+    background-color: rgba(240, 240, 240, 0.9); /* Light gray background for comments */
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+}
+
+.upload textarea {
+    width: 100%; /* Full width for textarea */
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #8B4513; /* Dark brown border */
+    margin-top: 10px; /* Space above textarea */
+}
+
+.upload button {
+    background-color: #FFD700; /* Gold button */
+    color: #8B4513; /* Dark brown text */
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.upload button:hover {
+    background-color: #8B4513; /* Dark brown on hover */
+    color: white; /* White text on hover */
+}

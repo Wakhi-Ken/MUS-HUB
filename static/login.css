@@ -1,0 +1,84 @@
+/* login.css */
+
+/* Set the same background properties as base.css */
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #88572f; /* Brown color */
+    background-image: url('https://images.unsplash.com/uploads/1412282232015a06e258a/4bdd2a58?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8bXVzaWMlMjBiYWNrZ3JvdW5kfGVufDB8fDB8fHww');
+    background-size: cover;
+    background-position: center;
+    animation: fade 5s infinite alternate;
+}
+
+@keyframes fade {
+    0% {
+        background-color: #8B4513; /* Dark brown */
+        opacity: 1;
+    }
+    100% {
+        background-color: #A0522D; /* Lighter brown */
+        opacity: 0.8;
+    }
+}
+
+/* Header and main title styles */
+h1 {
+    color: white;
+    text-align: center;
+    margin: 20px 0;
+}
+
+/* Form styles */
+form {
+    background-color: rgba(255, 255, 255, 0.9); /* Light background for the form */
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Input styles */
+input[type="text"],
+input[type="password"] {
+    width: 100%; /* Full width for inputs */
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #8B4513; /* Dark brown border */
+}
+
+/* Button styles */
+button {
+    background-color: #FFD700; /* Gold color for button */
+    color: #8B4513; /* Dark brown text */
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #8B4513; /* Dark brown on hover */
+    color: white; /* White text on hover */
+}
+
+/* Flash messages */
+.flashes {
+    list-style-type: none;
+    padding: 0;
+    color: red;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.flashes li {
+    background-color: rgba(255, 255, 255, 0.8); /* Light background for visibility */
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 5px;
+}
