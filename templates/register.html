@@ -1,10 +1,20 @@
 {% extends "base.html" %}
-{% block title %}MUS-HUB Registration{% endblock %}
+{% block title %}Join MUS-HUB{% endblock %}
 
 {% block content %}
+<style>
+  header, nav, footer {
+    display: none !important;
+  }
+</style>
+
 <div class="auth-container">
-    <h1>WELCOME TO</h1>
-    <h2>MUS-HUB</h2>
+    <h1>Welcome to <span style="color: #FFD700;">MUS-HUB</span></h1>
+    <p style="max-width: 600px; margin: 10px auto 30px; font-size: 1.1rem; color: #f5f5f5;">
+        🎶 <strong>MUS-HUB</strong> is the ultimate space where <strong>musicians and listeners unite</strong>. 
+        Share your sounds, connect with talent, and vibe with the rhythm of a creative community. 
+        Whether you’re an artist or a fan, <em>this is your stage</em>.
+    </p>
 
     <div class="form-container" id="register-form">
         <form method="POST" action="{{ url_for('register') }}">
@@ -28,9 +38,6 @@
     </div>
 </div>
 {% endblock %}
-
-<!-- Link to register.css -->
-<link rel="stylesheet" href="{{ url_for('static', filename='register.css') }}">
 
 <!-- Link to register.css -->
 <link rel="stylesheet" href="{{ url_for('static', filename='register.css') }}">

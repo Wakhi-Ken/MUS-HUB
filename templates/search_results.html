@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Search Results for "{{ query }}" | MUS-HUB{% endblock %}
+
+{% block content %}
+  <h2>Search Results for "{{ query }}"</h2>
+
+  <h3>Users</h3>
+  {% if users %}
+    <ul>
+      {% for user in users %}
+        <li>
+          <a href="{{ url_for('public_profile', user_id=user.UserID) }}">
+            {{ user.Username }} ({{ user.Role }})
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No users found.</p>
+  {% endif %}
+
+  <h3>Uploads</h3>
+  {% if uploads %}
+    <ul>
+      {% for upload in uploads %}
+        <li>
+          <a href="{{ url_for('public_profile', user_id=upload.user.UserID) }}">
+            {{ upload.FilePath }}
+          </a> by
+          <a href="{{ url_for('public_profile', user_id=upload.user.UserID) }}">
+            {{ upload.user.Username }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No uploads found.</p>
+  {% endif %}
+{% endblock %}

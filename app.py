@@ -26,6 +26,8 @@ class Content(db.Model):
     FilePath = db.Column(db.String(200), nullable=False)
     UploadDate = db.Column(db.DateTime, default=datetime.utcnow)
 
+    user = db.relationship('User', backref='contents')  # <---- Added relationship here
+
 class Comment(db.Model):
     CommentID = db.Column(db.Integer, primary_key=True)
     ContentID = db.Column(db.Integer, db.ForeignKey('content.ContentID'), nullable=False)
@@ -34,8 +36,15 @@ class Comment(db.Model):
     CommentDate = db.Column(db.DateTime, default=datetime.utcnow)
     user = db.relationship('User')
 
-# -------------------- Routes --------------------
+# -------------------- Context Processor --------------------
+@app.context_processor
+def inject_now():
+    return {
+        'now': datetime.utcnow(),
+        'current_user_id': session.get('user_id')
+    }
 
+# -------------------- Routes --------------------
 @app.route('/initdb')
 def init_db():
     db.create_all()
@@ -68,7 +77,6 @@ def login():
             return redirect(url_for('index'))
         else:
             flash("Invalid username or password.")
-            return redirect(url_for('login'))
     return render_template('login.html')
 
 @app.route('/profile', methods=['GET', 'POST'])
@@ -96,13 +104,20 @@ def index():
     user_id = session.get('user_id')
     user = User.query.get(user_id) if user_id else None
     username = user.Username if user else 'Guest'
-    contents = Content.query.all()
+    contents = Content.query.order_by(Content.UploadDate.desc()).all()
+
     for content in contents:
-        content.comments = Comment.query.filter_by(ContentID=content.ContentID).all()
+        content.comments = Comment.query.filter_by(ContentID=content.ContentID).order_by(Comment.CommentDate).all()
+        # No need to manually add uploader; use content.user in templates
+
     return render_template('index.html', username=username, contents=contents)
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_file():
+    if 'user_id' not in session:
+        flash("Login required to upload files.")
+        return redirect(url_for('login'))
+
     if request.method == 'POST':
         if 'file' not in request.files:
             flash("No file part")
@@ -124,8 +139,7 @@ def upload_file():
         flash("File uploaded successfully!")
         return redirect(url_for('index'))
 
-    user_id = session.get('user_id')
-    return render_template('upload.html', user_id=user_id)
+    return render_template('upload.html')
 
 @app.route('/comment/<int:content_id>', methods=['POST'])
 def add_comment(content_id):
@@ -142,6 +156,24 @@ def add_comment(content_id):
         flash("Comment added!")
     return redirect(url_for('index'))
 
+@app.route('/edit_comment/<int:comment_id>', methods=['POST'])
+def edit_comment(comment_id):
+    user_id = session.get('user_id')
+    comment = Comment.query.get(comment_id)
+    if comment and comment.UserID == user_id:
+        time_diff = (datetime.utcnow() - comment.CommentDate).total_seconds()
+        if time_diff <= 30:
+            new_text = request.form.get('comment_text')
+            if new_text:
+                comment.CommentText = new_text
+                db.session.commit()
+                flash("Comment updated.")
+        else:
+            flash("You can only edit comments within 30 seconds.")
+    else:
+        flash("Unauthorized or comment not found.")
+    return redirect(url_for('index'))
+
 @app.route('/delete/<int:content_id>', methods=['POST'])
 def delete_upload(content_id):
     user_id = session.get('user_id')
@@ -150,12 +182,10 @@ def delete_upload(content_id):
         return redirect(url_for('login'))
 
     content = Content.query.get(content_id)
-
     if content and content.UserID == user_id:
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], content.FilePath)
         if os.path.exists(file_path):
             os.remove(file_path)
-
         db.session.delete(content)
         db.session.commit()
         flash("Upload deleted.")
@@ -170,5 +200,36 @@ def logout():
     flash("You have been logged out.")
     return redirect(url_for('login'))
 
+# ----------- Public profile page -----------
+@app.route('/user/<int:user_id>')
+def public_profile(user_id):
+    user = User.query.get_or_404(user_id)
+    uploads = Content.query.filter_by(UserID=user_id).order_by(Content.UploadDate.desc()).all()
+    return render_template('public_profile.html', user=user, uploads=uploads)
+
+# ----------- Search Route -----------
+@app.route('/search')
+def search():
+    query = request.args.get('q', '').strip()
+    if not query:
+        flash("Please enter a search term.")
+        return redirect(url_for('index'))
+
+    # Search users by username or role (case-insensitive)
+    users = User.query.filter(
+        (User.Username.ilike(f'%{query}%')) |
+        (User.Role.ilike(f'%{query}%'))
+    ).all()
+
+    # Search uploads by filename (case-insensitive)
+    uploads = Content.query.filter(Content.FilePath.ilike(f'%{query}%')).all()
+
+    # Attach uploader info to each upload for display
+    for upload in uploads:
+        upload.user = User.query.get(upload.UserID)
+
+    return render_template('search_results.html', query=query, users=users, uploads=uploads)
+
 if __name__ == '__main__':
     app.run(debug=True)
+

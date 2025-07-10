@@ -2,62 +2,99 @@
 {% block title %}MUS-HUB | Home{% endblock %}
 
 {% block content %}
-<h2>Welcome, {{ username }}!</h2>
-<a href="{{ url_for('profile') }}">Go to Profile</a>
+  {% if 'user_id' in session %}
+    <h2>Welcome, {{ username }}!</h2>
+    <a href="{{ url_for('profile') }}">Go to Profile</a>
 
-<!-- Flash Messages -->
-{% with messages = get_flashed_messages() %}
-    {% if messages %}
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
         <ul class="flashes">
-        {% for message in messages %}
+          {% for message in messages %}
             <li>{{ message }}</li>
-        {% endfor %}
+          {% endfor %}
         </ul>
-    {% endif %}
-{% endwith %}
+      {% endif %}
+    {% endwith %}
 
-<h2>Latest Updates</h2>
+    <h2>Latest Uploads</h2>
+    {% for content in contents %}
+      <div class="upload">
+        <p><strong>By:</strong> 
+          <a href="{{ url_for('public_profile', user_id=content.user.UserID) }}">
+            {{ content.user.Username }}
+          </a>
+        </p>
+        <p><strong>Uploaded:</strong> {{ content.UploadDate.strftime('%Y-%m-%d %H:%M:%S') }}</p>
+        <p><strong>File:</strong> {{ content.FilePath }}</p>
 
-{% for content in contents %}
-    <div class="upload">
-        <h3>Uploaded File: {{ content.FilePath }}</h3>
-        <p>Upload Date: {{ content.UploadDate.strftime('%Y-%m-%d %H:%M:%S') }}</p>
-
-        <!-- Media Player -->
         {% set ext = content.FilePath.split('.')[-1].lower() %}
         {% if ext in ['mp3', 'wav', 'ogg'] %}
-            <audio controls>
-                <source src="{{ url_for('static', filename='uploads/' ~ content.FilePath) }}" type="audio/{{ ext }}">
-                Your browser does not support audio playback.
-            </audio>
-        {% elif ext in ['mp4', 'webm', 'ogg'] %}
-            <video controls width="360">
-                <source src="{{ url_for('static', filename='uploads/' ~ content.FilePath) }}" type="video/{{ ext }}">
-                Your browser does not support video playback.
-            </video>
+          <audio controls>
+            <source src="{{ url_for('static', filename='uploads/' ~ content.FilePath) }}" type="audio/{{ ext }}">
+            Your browser does not support audio playback.
+          </audio>
+        {% elif ext in ['mp4', 'webm'] %}
+          <video controls width="360">
+            <source src="{{ url_for('static', filename='uploads/' ~ content.FilePath) }}" type="video/{{ ext }}">
+            Your browser does not support video playback.
+          </video>
         {% else %}
-            <p>Preview not available for this file type.</p>
+          <p>Preview not available for this file type.</p>
         {% endif %}
 
-        <!-- Comments -->
-        <h4>Comments:</h4>
-        <ul>
-            {% for comment in content.comments %}
-                <li>
-                    <strong>{{ comment.user.Username }}</strong>: {{ comment.CommentText }}
-                    <small>({{ comment.CommentDate.strftime('%Y-%m-%d %H:%M:%S') }})</small>
-                </li>
-            {% endfor %}
-        </ul>
+        <!-- Toggle Comments -->
+        <button onclick="toggleComments('comments-{{ content.ContentID }}')">💬 Comments</button>
 
-        <!-- Comment Form -->
-        <form action="{{ url_for('add_comment', content_id=content.ContentID) }}" method="POST">
+        <!-- Comments Section -->
+        <div id="comments-{{ content.ContentID }}" class="comment-section" style="display: none;">
+          <h4>Comments:</h4>
+          <ul>
+            {% for comment in content.comments %}
+              <li>
+                <strong>
+                  <a href="{{ url_for('public_profile', user_id=comment.user.UserID) }}">
+                    {{ comment.user.Username }}
+                  </a>
+                </strong>:
+                {% if (current_user_id == comment.UserID) and ((now - comment.CommentDate).total_seconds() < 30) %}
+                  <form action="{{ url_for('edit_comment', comment_id=comment.CommentID) }}" method="POST" style="display:inline;">
+                    <input type="text" name="comment_text" value="{{ comment.CommentText }}">
+                    <button type="submit">Update</button>
+                  </form>
+                {% else %}
+                  {{ comment.CommentText }}
+                {% endif %}
+                <small>({{ comment.CommentDate.strftime('%Y-%m-%d %H:%M:%S') }})</small>
+              </li>
+            {% endfor %}
+          </ul>
+
+          <!-- Add Comment Form -->
+          <form action="{{ url_for('add_comment', content_id=content.ContentID) }}" method="POST">
             <textarea name="comment_text" placeholder="Leave a comment..." required></textarea>
             <button type="submit">Submit Comment</button>
-        </form>
-    </div>
-{% endfor %}
+          </form>
+        </div>
+      </div>
+    {% endfor %}
+
+    <script>
+      function toggleComments(id) {
+        const section = document.getElementById(id);
+        section.style.display = section.style.display === "none" ? "block" : "none";
+      }
+    </script>
+
+  {% else %}
+    <!-- Summary view for visitors -->
+    <section class="web-summary" style="text-align: center; padding: 2rem;">
+      <p style="max-width: 600px; margin: 10px auto 30px; font-size: 1.1rem; color: #f5f5f5;">
+        🎶 <strong>MUS-HUB</strong> is the ultimate space where <strong>musicians and listeners unite</strong>. 
+        Share your sounds, connect with talent, and vibe with the rhythm of a creative community. 
+        Whether you’re an artist or a fan, <em>this is your stage</em>
+      </p>
+    </section>
+  {% endif %}
 {% endblock %}
 
-<!-- Link to index.css -->
 <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">

@@ -41,20 +41,21 @@ header {
     gap: 15px;
 }
 
+/* Navigation styles */
 nav ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
     width: 100%;
     display: flex;
-    flex-direction: column;  /* vertical stack */
-    align-items: center;
-    gap: 12px;
+    flex-direction: row;  /* horizontal on desktop */
+    justify-content: center;
+    gap: 20px;
 }
 
 nav ul li {
     margin: 0;
-    width: 100%;
+    width: auto;
     text-align: center;
 }
 
@@ -63,7 +64,7 @@ nav a {
     text-decoration: none;
     font-weight: 700;
     font-size: 1.2rem;
-    padding: 8px 0;
+    padding: 8px 16px;
     display: block;
     border-radius: 8px;
     transition: color 0.3s ease, background-color 0.3s ease;
@@ -117,9 +118,22 @@ footer {
 
 /* Responsive tweaks */
 @media (max-width: 768px) {
+    nav ul {
+        flex-direction: column;  /* vertical on mobile */
+        align-items: center;
+        gap: 12px;
+        width: 100%;
+    }
+
+    nav ul li {
+        width: 100%;
+    }
+
     nav a {
         font-size: 1.4rem;
+        padding: 12px 0;
     }
+
     main {
         max-width: 90%;
         padding: 15px 10px;

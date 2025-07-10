@@ -1,22 +1,26 @@
 /* upload.css */
 
-/* Set the same background properties as base.css */
+/* Background with fade animation */
 body {
     margin: 0;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
+    flex-direction: column;      /* vertical layout */
     justify-content: center;
     align-items: center;
-    background-color: #8B4513; /* Brown color */
+    background-color: #8B4513; /* Dark Brown */
     background-image: url('https://images.unsplash.com/uploads/1412282232015a06e258a/4bdd2a58?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8bXVzaWMlMjBiYWNrZ3JvdW5kfGVufDB8fDB8fHww');
     background-size: cover;
     background-position: center;
-    animation: fade 5s infinite alternate;
+    animation: fade 6s ease-in-out infinite alternate;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 @keyframes fade {
     0% {
-        background-color: #8B4513; /* Dark brown */
+        background-color: #8B4513;
         opacity: 1;
     }
     100% {
@@ -25,35 +29,64 @@ body {
     }
 }
 
+/* Heading */
 h1 {
     color: white;
+    margin-bottom: 30px;
     text-align: center;
-    margin-bottom: 20px;
+    font-weight: 700;
+    font-size: 2rem;
 }
 
+/* Form container */
 form {
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background for form */
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
+    background-color: rgba(0, 0, 0, 0.55); /* Semi-transparent black */
+    padding: 30px 25px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.6);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    box-sizing: border-box;
 }
 
+/* File input styling */
 input[type="file"] {
-    margin: 10px 0;
-    padding: 10px;
-    border-radius: 5px;
+    padding: 12px;
+    border-radius: 6px;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
 }
 
+/* Button styling */
 button {
     width: 100%;
-    padding: 10px;
-    background-color: #FFD700; /* Gold color for button */
+    padding: 14px;
+    background-color: #FFD700; /* Gold */
     border: none;
-    border-radius: 5px;
+    border-radius: 6px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    transition: background-color 0.3s ease;
 }
 
 button:hover {
-    background-color: #FFC107; /* Slightly darker on hover */
+    background-color: #FFC107; /* Darker gold */
+}
+
+/* Responsive tweaks */
+@media (max-width: 480px) {
+    form {
+        padding: 20px 15px;
+        max-width: 90%;
+    }
+
+    button {
+        font-size: 1rem;
+        padding: 12px;
+    }
 }

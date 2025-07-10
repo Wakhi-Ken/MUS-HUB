@@ -6,16 +6,12 @@
   <title>MUS-HUB</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}" />
   <style>
-    /* Minimal CSS for hamburger and nav toggle - will override/add to base.css */
-
-    /* Container */
     .container {
       max-width: 1100px;
       margin: 0 auto;
       padding: 0 15px;
     }
 
-    /* Header flex layout */
     .site-header .container {
       display: flex;
       align-items: center;
@@ -23,20 +19,19 @@
       position: relative;
     }
 
-    /* Logo styling */
     .logo {
       font-size: 1.8rem;
       font-weight: 700;
       color: white;
     }
 
-    /* Nav list */
     .nav-list {
       list-style: none;
       margin: 0;
       padding: 0;
       display: flex;
       gap: 20px;
+      align-items: center;
     }
 
     .nav-list li a {
@@ -54,7 +49,44 @@
       background-color: rgba(255 255 255 / 0.2);
     }
 
-    /* Hamburger button - hidden on desktop */
+    /* Search icon container */
+    .search-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      color: white;
+      cursor: pointer;
+    }
+
+    /* Search input - hidden by default */
+    #search-input {
+      display: none;
+      position: absolute;
+      top: 35px;
+      right: 0;
+      width: 220px;
+      padding: 6px 10px;
+      border-radius: 5px;
+      border: none;
+      font-size: 1rem;
+      outline: none;
+      background-color: #444;
+      color: white;
+      z-index: 1100;
+      box-shadow: 0 0 5px rgba(0,0,0,0.5);
+    }
+
+    #search-input::placeholder {
+      color: #ccc;
+    }
+
+    /* Search icon SVG style */
+    .search-icon {
+      width: 20px;
+      height: 20px;
+      fill: white;
+    }
+
     .hamburger {
       display: none;
       flex-direction: column;
@@ -72,7 +104,6 @@
       transition: all 0.3s ease;
     }
 
-    /* Mobile styles */
     @media (max-width: 768px) {
       .nav-list {
         position: absolute;
@@ -104,6 +135,13 @@
       .hamburger {
         display: flex;
       }
+
+      /* Adjust search input position on mobile */
+      #search-input {
+        top: 50px;
+        width: 180px;
+        right: 10px;
+      }
     }
   </style>
 </head>
@@ -121,14 +159,33 @@
 
       <nav>
         <ul class="nav-list" id="nav-list">
-          <li><a href="/">Home</a></li>
-          <li><a href="/upload">Upload</a></li>
           {% if 'user_id' in session %}
+            <li><a href="/">Home</a></li>
+            <li><a href="/upload">Upload</a></li>
             <li><a href="{{ url_for('profile') }}">Profile</a></li>
             <li><a href="{{ url_for('logout') }}">Logout</a></li>
           {% else %}
-            <li><a href="/register">Register</a></li>
+            <li><a href="{{ url_for('login') }}">Login</a></li>
+            <li><a href="{{ url_for('register') }}">Register</a></li>
           {% endif %}
+
+          <!-- Search icon -->
+          <li class="search-container" id="search-container" tabindex="0" role="button" aria-label="Toggle search">
+            <!-- Magnifying glass SVG icon -->
+            <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M15.5 14h-.79l-.28-.27a6.471 6.471 0 001.48-5.34C15.14 5.59 12.53 3 9.25 3S3.36 5.59 3.36 8.39c0 2.79 2.6 5.39 5.89 5.39 1.31 0 2.5-.51 3.38-1.34l.27.28v.79l4.25 4.25 1.5-1.5-4.25-4.25zm-6.25 0c-1.8 0-3.25-1.45-3.25-3.25S7.45 7.5 9.25 7.5 12.5 8.95 12.5 10.75 11.05 14 9.25 14z"/>
+            </svg>
+
+            <input
+              type="text"
+              id="search-input"
+              name="q"
+              placeholder="Search users or uploads..."
+              aria-label="Search users or uploads"
+              autocomplete="off"
+              onkeydown="if(event.key === 'Enter'){ performSearch(); }"
+            />
+          </li>
         </ul>
       </nav>
     </div>
@@ -153,30 +210,72 @@
   </footer>
 
   <script>
-    // Toggle nav menu on hamburger click
     const hamburger = document.getElementById('hamburger');
     const navList = document.getElementById('nav-list');
+    const searchContainer = document.getElementById('search-container');
+    const searchInput = document.getElementById('search-input');
 
     function toggleMenu() {
       navList.classList.toggle('active');
       hamburger.classList.toggle('active');
+      // Hide search input if open when toggling menu on small screens
+      if (searchInput.style.display === 'block') {
+        searchInput.style.display = 'none';
+      }
     }
 
     hamburger.addEventListener('click', toggleMenu);
     hamburger.addEventListener('keypress', (e) => {
-      if(e.key === 'Enter' || e.key === ' ') {
+      if (e.key === 'Enter' || e.key === ' ') {
         toggleMenu();
       }
     });
 
-    // Optional: Close menu on nav link click (mobile)
     document.querySelectorAll('.nav-list a').forEach(link => {
       link.addEventListener('click', () => {
-        if(navList.classList.contains('active')) {
+        if (navList.classList.contains('active')) {
           toggleMenu();
         }
       });
     });
+
+    // Toggle search input visibility
+    searchContainer.addEventListener('click', () => {
+      if (searchInput.style.display === 'block') {
+        searchInput.style.display = 'none';
+      } else {
+        searchInput.style.display = 'block';
+        searchInput.focus();
+      }
+    });
+
+    searchContainer.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        if (searchInput.style.display === 'block') {
+          searchInput.style.display = 'none';
+        } else {
+          searchInput.style.display = 'block';
+          searchInput.focus();
+        }
+      }
+    });
+
+    // Basic search function - redirects to /search?q=...
+    function performSearch() {
+      const query = searchInput.value.trim();
+      if (query.length > 0) {
+        window.location.href = `/search?q=${encodeURIComponent(query)}`;
+      }
+    }
+
+    // Optional: Hide search input if user clicks outside
+    document.addEventListener('click', (e) => {
+      if (!searchContainer.contains(e.target)) {
+        searchInput.style.display = 'none';
+      }
+    });
   </script>
 </body>
 </html>
+
