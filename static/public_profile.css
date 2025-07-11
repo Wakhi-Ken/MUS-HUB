@@ -1,108 +1,163 @@
-/* public_profile.css */
+:root {
+  --background: #15202b;
+  --container-bg: #192734;
+  --section-bg: #22303c;
+  --accent-color: #1da1f2;
+  --text-light: #f5f8fa;
+  --text-muted: #8899a6;
+  --border-color: #38444d;
+  --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --radius: 16px;
+  --small-radius: 10px;
+  --transition-speed: 0.3s;
+  --shadow-dark: rgba(0, 0, 0, 0.5);
+  --glass-bg: rgba(255 255 255 / 0.05);
+}
 
-/* Page setup */
 body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #15202b;
-    color: #ffffff;
-    display: flex;
-    justify-content: center;
-    padding: 20px;
-  }
-  
-  /* Container for profile content */
-  .public-profile-container {
-    width: 600px;
-    background: #192734;
-    border-radius: 16px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-    padding: 25px 30px;
-  }
-  
-  /* Header with username */
-  .public-header {
-    font-size: 28px;
-    font-weight: 800;
-    color: #ffffff;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #38444d;
-    padding-bottom: 10px;
-  }
-  
-  /* Role label */
-  .user-role {
-    font-size: 14px;
-    font-weight: 600;
-    color: #1da1f2;
-    margin-bottom: 20px;
-  }
-  
-  /* Bio section */
-  .user-bio {
-    font-size: 15px;
-    color: #e1e8ed;
-    line-height: 1.5;
-    margin-bottom: 30px;
-    padding: 15px;
-    background: #22303c;
-    border-radius: 12px;
-  }
-  
-  /* Upload section */
-  .uploads-section {
-    background-color: #22303c;
-    padding: 20px;
-    border-radius: 12px;
-  }
-  
-  .uploads-section h3 {
-    color: #1da1f2;
-    font-size: 20px;
-    font-weight: 700;
-    margin-bottom: 15px;
-    border-bottom: 1px solid #38444d;
-    padding-bottom: 8px;
-  }
-  
-  /* Each uploaded file */
-  .upload-item {
-    background-color: #15202b;
-    border-radius: 10px;
-    padding: 15px;
-    margin-bottom: 15px;
-    box-shadow: inset 0 0 0 1px #38444d;
-  }
-  
-  .upload-item p {
-    margin: 5px 0;
-    font-size: 15px;
-    color: #f5f8fa;
-  }
-  
-  /* Audio/video preview */
-  audio,
-  video {
-    width: 100%;
-    max-width: 100%;
-    margin-top: 10px;
-    border-radius: 8px;
-  }
-  
-  /* Small text like dates */
-  small {
-    font-size: 13px;
-    color: #8899a6;
-  }
-  
-  /* Links */
-  a {
-    color: #1da1f2;
-    text-decoration: none;
-  }
-  
-  a:hover {
-    text-decoration: underline;
-  }
-  
+  margin: 0;
+  padding: 20px;
+  font-family: var(--font-family);
+  background-color: var(--background);
+  color: var(--text-light);
+  display: flex;
+  justify-content: center;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Container */
+.public-profile-container {
+  width: 600px;
+  background: var(--container-bg);
+  border-radius: var(--radius);
+  box-shadow: 0 12px 30px var(--shadow-dark);
+  padding: 30px 35px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-bg);
+  transition: box-shadow var(--transition-speed) ease;
+}
+
+.public-profile-container:hover {
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.75);
+}
+
+/* Header */
+.public-header {
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: var(--accent-color);
+  margin-bottom: 12px;
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 12px;
+  letter-spacing: 0.06em;
+  user-select: none;
+}
+
+/* Role */
+.user-role {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--accent-color);
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  user-select: none;
+}
+
+/* Bio */
+.user-bio {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-light);
+  background: var(--section-bg);
+  border-radius: 14px;
+  padding: 20px 25px;
+  margin-bottom: 35px;
+  box-shadow:
+    inset 0 0 8px rgba(255 255 255 / 0.1);
+  transition: background var(--transition-speed) ease;
+  user-select: text;
+}
+
+/* Uploads section */
+.uploads-section {
+  background: var(--section-bg);
+  padding: 25px 30px;
+  border-radius: 14px;
+  box-shadow:
+    inset 0 0 14px rgba(255 255 255 / 0.08);
+  transition: background var(--transition-speed) ease;
+}
+
+.uploads-section h3 {
+  color: var(--accent-color);
+  font-size: 1.3rem;
+  font-weight: 800;
+  margin-bottom: 18px;
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 10px;
+  letter-spacing: 0.05em;
+  user-select: none;
+}
+
+/* Each upload */
+.upload-item {
+  background: var(--background);
+  border-radius: var(--small-radius);
+  padding: 18px 22px;
+  margin-bottom: 18px;
+  box-shadow:
+    inset 0 0 0 1.5px var(--border-color);
+  transition: box-shadow var(--transition-speed) ease, background var(--transition-speed) ease;
+  cursor: default;
+}
+
+.upload-item:hover {
+  box-shadow:
+    inset 0 0 4px 2px var(--accent-color);
+  background: #1c2737;
+}
+
+/* Upload text */
+.upload-item p {
+  margin: 8px 0;
+  font-size: 1rem;
+  color: var(--text-light);
+  line-height: 1.5;
+}
+
+/* Media */
+audio,
+video {
+  width: 100%;
+  max-width: 100%;
+  margin-top: 14px;
+  border-radius: 12px;
+  box-shadow:
+    0 4px 14px rgba(0, 0, 0, 0.3);
+  outline: none;
+}
+
+/* Small text */
+small {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  user-select: none;
+}
+
+/* Links */
+a {
+  color: var(--accent-color);
+  text-decoration: none;
+  font-weight: 700;
+  transition: color var(--transition-speed) ease;
+}
+
+a:hover,
+a:focus {
+  color: #73a9ff;
+  text-decoration: underline;
+  outline: none;
+}

@@ -3,11 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>MUS-HUB</title>
+  <title>{% block title %}MUS-HUB{% endblock %}</title>
+
+  <!-- Global base styles -->
   <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}" />
-  <style>
-    /* (Your existing CSS styles here; omitted for brevity) */
-  </style>
+  
+  <!-- Page-specific styles like login.css -->
+  {% block extra_css %}{% endblock %}
 </head>
 <body>
   <header class="site-header">
@@ -28,14 +30,10 @@
             <li><a href="/upload">Upload</a></li>
             <li><a href="{{ url_for('profile') }}">Profile</a></li>
             <li><a href="{{ url_for('logout') }}">Logout</a></li>
-
-            <!-- Search icon and input ONLY if logged in -->
             <li class="search-container" id="search-container" tabindex="0" role="button" aria-label="Toggle search">
-              <!-- Magnifying glass SVG icon -->
               <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <path d="M15.5 14h-.79l-.28-.27a6.471 6.471 0 001.48-5.34C15.14 5.59 12.53 3 9.25 3S3.36 5.59 3.36 8.39c0 2.79 2.6 5.39 5.89 5.39 1.31 0 2.5-.51 3.38-1.34l.27.28v.79l4.25 4.25 1.5-1.5-4.25-4.25zm-6.25 0c-1.8 0-3.25-1.45-3.25-3.25S7.45 7.5 9.25 7.5 12.5 8.95 12.5 10.75 11.05 14 9.25 14z"/>
               </svg>
-
               <input
                 type="text"
                 id="search-input"
@@ -46,7 +44,6 @@
                 onkeydown="if(event.key === 'Enter'){ performSearch(); }"
               />
             </li>
-
           {% else %}
             <li><a href="{{ url_for('login') }}">Login</a></li>
             <li><a href="{{ url_for('register') }}">Register</a></li>
@@ -103,7 +100,7 @@
       });
     });
 
-    if(searchContainer){
+    if (searchContainer) {
       searchContainer.addEventListener('click', () => {
         if (searchInput.style.display === 'block') {
           searchInput.style.display = 'none';
@@ -141,3 +138,4 @@
   </script>
 </body>
 </html>
+

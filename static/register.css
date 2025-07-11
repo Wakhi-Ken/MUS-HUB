@@ -1,110 +1,234 @@
-/* register.css */
+:root {
+    --background: #121224; /* darker background */
+    --color: #ddddee; /* lighter text */
+    --primary-color: #0f3460;
+    --accent-color: #0051ff;
+    --glass-bg: rgba(18, 18, 36, 0.7); /* stronger glass bg */
+    --input-bg: rgba(255, 255, 255, 0.07);
+}
 
-/* Background with fade animation */
-body {
+/* Reset and base styles */
+* {
+    box-sizing: border-box;
     margin: 0;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;      /* vertical layout */
-    justify-content: center;
-    align-items: center;
-    background-color: #8B4513; /* Dark Brown */
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--background);
     background-image: url('https://images.unsplash.com/uploads/1412282232015a06e258a/4bdd2a58?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8bXVzaWMlMjBiYWNrZ3JvdW5kfGVufDB8fDB8fHww');
     background-size: cover;
     background-position: center;
-    animation: fade 6s ease-in-out infinite alternate;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: white;
+    color: var(--color);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 20px;
-    box-sizing: border-box;
+    animation: fade 6s ease-in-out infinite alternate, fadeIn 1s ease-in-out;
 }
 
+/* Container */
+.auth-container {
+    max-width: 400px;
+    width: 100%;
+    z-index: 2;
+    animation: slideUp 1.2s ease-out forwards;
+}
+
+/* Glass card with stronger effect and subtle shadows */
+.form-container {
+    background: var(--glass-bg);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+    backdrop-filter: blur(30px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+    padding: 3rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem;
+    position: relative;
+}
+
+/* Heading */
+h1 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    text-align: left; /* align left like the screenshot */
+    letter-spacing: 0.08em;
+    color: var(--color);
+    margin-bottom: 2rem;
+    text-shadow: 0 0 10px var(--accent-color);
+    user-select: none;
+}
+
+/* Input Group */
+.input-group {
+    position: relative;
+    margin-top: 1rem;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 1.15rem 1rem;
+    font-size: 1.05rem;
+    border-radius: 8px;
+    background: var(--input-bg);
+    color: var(--color);
+    border: 1.8px solid transparent;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    backdrop-filter: blur(8px);
+}
+
+.input-group input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* On focus and filled */
+.input-group input:focus,
+.input-group input:not(:placeholder-shown) {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 12px var(--accent-color);
+}
+
+/* Label styling: hide label (optional) to keep minimal style like screenshot */
+.input-group label {
+    display: none;
+}
+
+/* Submit Button */
+button {
+    padding: 14px;
+    font-size: 1.15rem;
+    border-radius: 12px;
+    background: var(--accent-color);
+    color: white;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 0 15px var(--accent-color);
+    user-select: none;
+}
+
+button:hover,
+button:focus {
+    background: #003dcc;
+    box-shadow: 0 0 25px #003dcc;
+    transform: scale(1.07);
+}
+
+/* Links below button */
+.links {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: 0.4rem;
+    user-select: none;
+}
+
+.links a {
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    transition: color 0.25s ease;
+}
+
+.links a:hover,
+.links a:focus {
+    color: var(--accent-color);
+    text-decoration: underline;
+}
+
+/* Circles decoration if used */
+.circle {
+    position: absolute;
+    width: 8rem;
+    height: 8rem;
+    background: radial-gradient(circle at center, var(--accent-color), transparent);
+    border-radius: 50%;
+    z-index: 0;
+    animation: float 6s ease-in-out infinite;
+}
+
+.circle-one {
+    top: -3rem;
+    left: -3rem;
+    animation-delay: 1s;
+}
+
+.circle-two {
+    bottom: -3rem;
+    right: -3rem;
+    animation-delay: 2s;
+}
+
+/* Animations */
 @keyframes fade {
     0% {
-        background-color: #8B4513;
+        background-color: var(--background);
         opacity: 1;
     }
     100% {
-        background-color: #A0522D; /* Lighter brown */
-        opacity: 0.8;
+        background-color: #1b1c3a;
+        opacity: 0.9;
     }
 }
 
-/* Center container for auth form */
-.auth-container {
-    width: 100%;
-    max-width: 400px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;     /* vertical stack */
-    gap: 25px;                  /* space between sections */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10%);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-/* Headings */
-h1, h2 {
-    margin: 10px 0;
-    font-weight: 700;
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
-/* Form styling */
-.form-container {
-    background-color: rgba(0, 0, 0, 0.55); /* Slightly more opaque */
-    padding: 30px 25px;
-    border-radius: 12px;
-    box-shadow: 0 0 15px rgba(0,0,0,0.6);
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+@keyframes float {
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+    50% {
+        transform: translate(10px, -10px);
+    }
 }
 
-/* Form labels stacked vertically */
-label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 600;
-    text-align: left;
-}
-
-/* Inputs and selects full width */
-input, select, textarea {
-    width: 100%;
-    padding: 12px 10px;
-    margin-bottom: 0;
-    border: none;
-    border-radius: 6px;
-    font-size: 1rem;
-    box-sizing: border-box;
-}
-
-/* Button styling */
-button {
-    width: 100%;
-    padding: 12px;
-    background-color: #FFD700; /* Gold */
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 1.1rem;
-    font-weight: 700;
-    transition: background-color 0.3s ease;
-}
-
-button:hover {
-    background-color: #FFC107; /* Slightly darker gold */
-}
-
-/* Responsive for smaller devices */
+/* Responsive */
 @media (max-width: 480px) {
     .auth-container {
         max-width: 90%;
     }
 
     .form-container {
-        padding: 20px 15px;
+        padding: 2.5rem 1.5rem;
     }
 
     button {
         font-size: 1rem;
-        padding: 10px;
+        padding: 12px;
     }
 }
+
+
+
+

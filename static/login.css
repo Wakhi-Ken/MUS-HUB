@@ -1,84 +1,229 @@
-/* login.css */
+:root {
+    --background: #1a1a2e;
+    --color: #ffffff;
+    --primary-color: #0f3460;
+    --accent-color: #022188;
+    --glass-bg: rgba(255, 255, 255, 0.05);
+}
 
-/* Set the same background properties as base.css */
-body {
+* {
+    box-sizing: border-box;
     margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    background: linear-gradient(135deg, #1a1a2e, #0f3460);
+    color: var(--color);
+    letter-spacing: 1px;
     height: 100vh;
+    overflow: hidden;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
-    background-color: #88572f; /* Brown color */
-    background-image: url('https://images.unsplash.com/uploads/1412282232015a06e258a/4bdd2a58?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8bXVzaWMlMjBiYWNrZ3JvdW5kfGVufDB8fDB8fHww');
-    background-size: cover;
-    background-position: center;
-    animation: fade 5s infinite alternate;
+    justify-content: center;
+    animation: fadeIn 1s ease-in-out;
 }
 
-@keyframes fade {
-    0% {
-        background-color: #8B4513; /* Dark brown */
-        opacity: 1;
-    }
-    100% {
-        background-color: #A0522D; /* Lighter brown */
-        opacity: 0.8;
-    }
+a {
+    text-decoration: none;
+    color: var(--accent-color);
+    transition: color 0.3s ease;
 }
 
-/* Header and main title styles */
+a:hover {
+    color: #ffffff;
+}
+
+.container {
+    position: relative;
+    z-index: 2;
+    animation: slideUp 1.2s ease-out forwards;
+}
+
+.login-container {
+    position: relative;
+    width: 22.2rem;
+}
+
+.form-container {
+    background: var(--glass-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(20px);
+    padding: 2.5rem;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+.form-container:hover {
+    transform: scale(1);
+}
+
 h1 {
-    color: white;
+    font-size: 2.5rem;
     text-align: center;
-    margin: 20px 0;
+    margin-bottom: 0.5rem;
+    animation: pulse 2s infinite alternate;
 }
 
-/* Form styles */
-form {
-    background-color: rgba(255, 255, 255, 0.9); /* Light background for the form */
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+p.opacity {
+    opacity: 0.7;
+    text-align: center;
+    margin-bottom: 2rem;
 }
 
-/* Input styles */
 input[type="text"],
 input[type="password"] {
-    width: 100%; /* Full width for inputs */
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
-    border: 1px solid #8B4513; /* Dark brown border */
+    width: 100%;
+    padding: 14px;
+    margin: 1rem 0;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    color: white;
+    font-size: 16px;
+    outline: none;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
 }
 
-/* Button styles */
+input:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 12px var(--accent-color);
+    animation: glow 0.6s ease-in-out;
+}
+
 button {
-    background-color: #FFD700; /* Gold color for button */
-    color: #8B4513; /* Dark brown text */
+    width: 100%;
+    padding: 14px;
     border: none;
-    padding: 10px;
-    border-radius: 5px;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 1.2px;
+    background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+    color: white;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 button:hover {
-    background-color: #8B4513; /* Dark brown on hover */
-    color: white; /* White text on hover */
+    transform: scale(1.05);
+    box-shadow: 0 0 20px var(--accent-color);
 }
 
-/* Flash messages */
+.register-forget {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    opacity: 0.85;
+}
+
 .flashes {
-    list-style-type: none;
-    padding: 0;
-    color: red;
+    list-style: none;
     text-align: center;
-    margin: 20px 0;
+    margin-top: 1rem;
+    padding: 0;
 }
 
 .flashes li {
-    background-color: rgba(255, 255, 255, 0.8); /* Light background for visibility */
-    margin: 5px 0;
+    background: rgba(255, 0, 0, 0.1);
+    border: 1px solid rgba(30, 2, 151, 0.2);
+    color: #002064;
     padding: 10px;
-    border-radius: 5px;
+    margin: 5px 0;
+    border-radius: 6px;
+    animation: slideFadeIn 0.5s ease forwards;
+}
+
+.circle {
+    position: absolute;
+    width: 8rem;
+    height: 8rem;
+    background: radial-gradient(circle at center, var(--accent-color), transparent);
+    border-radius: 50%;
+    z-index: 0;
+    animation: float 6s ease-in-out infinite;
+}
+
+.circle-one {
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+    animation-delay: 1s;
+}
+
+.circle-two {
+    bottom: 0;
+    right: 0;
+    transform: translate(50%, 50%);
+    animation-delay: 2s;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10%);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes pulse {
+    0% {
+        text-shadow: 0 0 0 transparent;
+    }
+    100% {
+        text-shadow: 0 0 15px var(--accent-color);
+    }
+}
+
+@keyframes glow {
+    0% {
+        box-shadow: 0 0 5px var(--accent-color);
+    }
+    100% {
+        box-shadow: 0 0 15px var(--accent-color);
+    }
+}
+
+@keyframes slideFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+    50% {
+        transform: translate(10px, -10px);
+    }
 }

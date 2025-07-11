@@ -1,164 +1,288 @@
-/* profile.css + search results tweaks */
-
-/* Basic reset & font */
-body {
+:root {
+    --background: #1a1a2e;
+    --color: #ffffff;
+    --primary-color: #0f3460;
+    --accent-color: #242294;
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-highlight: rgba(255, 255, 255, 0.2);
+    --shadow-color: rgba(0, 0, 0, 0.7);
+    --font-family: "Poppins", sans-serif;
+  }
+  
+  * {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #15202b; /* Twitter dark blue background */
-    color: #ffffff;
+  }
+  
+  body {
+    font-family: var(--font-family);
+    background: linear-gradient(135deg, var(--background), var(--primary-color));
+    color: var(--color);
     display: flex;
     justify-content: center;
-    padding: 20px;
-}
-
-/* Main container - centered column with fixed width */
-.profile-container,
-.search-results-container {
-    width: 600px;
-    background: #192734; /* Dark card background */
-    border-radius: 16px;
-    box-shadow: 0 8px 24px rgb(0 0 0 / 0.5);
-    padding: 20px 30px;
-}
-
-/* Header with username or search header */
-.profile-header,
-.search-header {
-    font-size: 28px;
-    font-weight: 800;
-    border-bottom: 1px solid #38444d;
-    padding-bottom: 12px;
-    margin-bottom: 20px;
-}
-
-/* Sections styled as cards */
-.profile-section,
-.search-section {
-    background: #22303c;
-    border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 20px;
-}
-
-/* Section titles */
-.profile-section h3,
-.search-section h3 {
+    padding: 40px 20px;
+    min-height: 100vh;
+    letter-spacing: 0.8px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Container */
+  .profile-container,
+  .search-results-container {
+    width: 100%;
+    max-width: 620px;
+    background: var(--glass-bg);
+    border-radius: 24px;
+    box-shadow:
+      0 8px 32px var(--shadow-color),
+      inset 0 0 50px var(--glass-highlight);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid var(--glass-highlight);
+    padding: 40px 50px;
+    animation: slideUp 1.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    transition: box-shadow 0.4s ease;
+  }
+  
+  .profile-container:hover,
+  .search-results-container:hover {
+    box-shadow:
+      0 16px 48px var(--shadow-color),
+      inset 0 0 70px var(--glass-highlight);
+  }
+  
+  /* Headers */
+  .profile-header,
+  .search-header {
+    font-size: 2.4rem;
+    font-weight: 900;
+    color: var(--accent-color);
+    border-bottom: 2px solid var(--glass-highlight);
+    padding-bottom: 16px;
+    margin-bottom: 32px;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    animation: pulse 3s ease-in-out infinite alternate;
+  }
+  
+  /* Sections */
+  .profile-section,
+  .search-section {
+    background: rgba(255, 255, 255, 0.07);
+    border-radius: 20px;
+    padding: 28px 32px;
+    margin-bottom: 28px;
+    box-shadow:
+      inset 0 0 12px rgba(255, 255, 255, 0.1),
+      0 4px 16px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease;
+  }
+  
+  .profile-section:hover,
+  .search-section:hover {
+    background: rgba(255, 255, 255, 0.12);
+  }
+  
+  .profile-section h3,
+  .search-section h3 {
     margin-top: 0;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     font-weight: 700;
-    color: #1da1f2; /* Twitter blue */
-    border-bottom: 1px solid #38444d;
-    padding-bottom: 8px;
-}
-
-/* Bio text styling */
-.bio-text {
-    font-size: 16px;
-    line-height: 1.5;
-    color: #e1e8ed;
-}
-
-/* Lists for search results - users and uploads */
-ul {
+    font-size: 1.6rem;
+    color: var(--accent-color);
+    border-bottom: 1.5px solid var(--glass-highlight);
+    padding-bottom: 10px;
+    letter-spacing: 0.8px;
+  }
+  
+  /* Bio */
+  .bio-text {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #d1d7de;
+    letter-spacing: 0.4px;
+    font-weight: 400;
+    user-select: text;
+  }
+  
+  /* Lists */
+  ul {
     list-style: none;
     padding: 0;
     margin: 0;
-}
-
-ul li {
-    padding: 12px 10px;
-    border-bottom: 1px solid #38444d;
-    color: #e1e8ed;
-    font-size: 15px;
-}
-
-ul li:last-child {
+  }
+  
+  ul li {
+    padding: 16px 12px;
+    border-bottom: 1.2px solid rgba(255, 255, 255, 0.12);
+    color: #cfd8e4;
+    font-size: 1rem;
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s ease;
+    border-radius: 12px;
+  }
+  
+  ul li:hover {
+    background: rgba(233, 69, 96, 0.15);
+  }
+  
+  ul li:last-child {
     border-bottom: none;
-}
-
-ul li small {
-    color: #8899a6;
-    font-size: 13px;
-}
-
-/* Links in search results */
-a {
-    color: #1da1f2;
-    text-decoration: none;
-    font-weight: 600;
-}
-
-a:hover,
-a:focus {
-    text-decoration: underline;
-}
-
-/* Buttons */
-button {
-    background-color: #1da1f2;
-    color: #fff;
+  }
+  
+  ul li small {
+    color: #aab8c2;
+    font-size: 0.85rem;
+  }
+  
+  /* Links */
+  a {
+    color: var(--accent-color);
     font-weight: 700;
+    text-decoration: none;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+  }
+  
+  a:hover,
+  a:focus {
+    color: #fff;
+    text-shadow: 0 0 8px var(--accent-color);
+    text-decoration: underline;
+  }
+  
+  /* Buttons */
+  button {
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    color: white;
+    font-weight: 800;
     border: none;
-    border-radius: 20px;
-    padding: 10px 24px;
-    font-size: 16px;
+    border-radius: 30px;
+    padding: 14px 40px;
+    font-size: 1.1rem;
     cursor: pointer;
-    transition: background-color 0.2s ease;
-}
-
-button:hover {
-    background-color: #0d8ddb;
-}
-
-/* Flash messages */
-.flashes {
+    box-shadow: 0 6px 20px rgba(0, 38, 255, 0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    user-select: none;
+  }
+  
+  button:hover,
+  button:focus {
+    transform: scale(1.08);
+    box-shadow: 0 10px 40px rgba(3, 91, 255, 0.7);
+    outline: none;
+  }
+  
+  /* Flash messages */
+  .flashes {
     list-style: none;
     padding: 0;
-    margin-bottom: 15px;
-}
-
-.flashes li {
-    background-color: #17bf63;
-    padding: 10px 15px;
-    border-radius: 16px;
-    color: white;
-    font-weight: 700;
+    margin-bottom: 20px;
     text-align: center;
-    margin-bottom: 10px;
-}
-
-/* Delete button */
-ul li form button {
+  }
+  
+  .flashes li {
+    background: rgba(233, 69, 96, 0.2);
+    border: 1.5px solid rgba(0, 4, 255, 0.5);
+    color: var(--accent-color);
+    padding: 14px 20px;
+    border-radius: 24px;
+    font-weight: 800;
+    margin-bottom: 12px;
+    text-shadow: 0 0 4px rgba(255,255,255,0.2);
+    letter-spacing: 0.8px;
+  }
+  
+  /* Delete button in list items */
+  ul li form button {
     background: transparent;
     border: none;
-    color: #e0245e;
+    color: #ff7a91;
     font-weight: 700;
     cursor: pointer;
     padding: 0;
-    font-size: 14px;
-    transition: color 0.2s ease;
-}
-
-ul li form button:hover {
-    color: #ff3864;
-}
-
-/* Logout link styled as a button */
-.logout-link {
+    font-size: 0.95rem;
+    transition: color 0.3s ease;
+    user-select: none;
+  }
+  
+  ul li form button:hover,
+  ul li form button:focus {
+    color: #ff465d;
+    outline: none;
+  }
+  
+  /* Logout link */
+  .logout-link {
     display: block;
-    margin: 30px auto 0;
-    background-color: #e0245e;
-    padding: 12px 30px;
-    border-radius: 30px;
-    font-weight: 700;
+    margin: 40px auto 0;
+    background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+    padding: 16px 50px;
+    border-radius: 40px;
+    font-weight: 800;
     text-align: center;
     width: fit-content;
     text-decoration: none;
     color: white;
-    transition: background-color 0.2s ease;
-}
-
-.logout-link:hover {
-    background-color: #b71c4b;
-}
+    box-shadow: 0 6px 25px rgba(233, 69, 96, 0.6);
+    transition: background-color 0.4s ease, box-shadow 0.4s ease;
+    user-select: none;
+  }
+  
+  .logout-link:hover,
+  .logout-link:focus {
+    background: linear-gradient(135deg, #ff526d, #0c2b4f);
+    box-shadow: 0 10px 35px rgba(255, 82, 109, 0.85);
+    outline: none;
+  }
+  
+  /* Animations */
+  @keyframes slideUp {
+    from {
+      transform: translateY(50px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes pulse {
+    0% {
+      text-shadow: 0 0 0 transparent;
+    }
+    100% {
+      text-shadow: 0 0 15px var(--accent-color);
+    }
+  }
+  
+  /* Responsive */
+  @media (max-width: 680px) {
+    .profile-container,
+    .search-results-container {
+      padding: 30px 25px;
+      max-width: 100%;
+    }
+  
+    .profile-header,
+    .search-header {
+      font-size: 1.8rem;
+      margin-bottom: 24px;
+    }
+  
+    button {
+      padding: 12px 32px;
+      font-size: 1rem;
+    }
+  
+    ul li {
+      font-size: 0.95rem;
+      padding: 14px 10px;
+    }
+  }
+  
