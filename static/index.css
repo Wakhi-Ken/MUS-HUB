@@ -2,12 +2,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Open+Sans&display=swap');
 
 :root {
-   --background-color: rgba(26, 26, 46, 0.3);
+   --background-color: rgba(25, 25, 207, 0.596);
   --color: #ffffff;
   --primary-color: #0f3460;
-  --accent-color: #0044ff;
+  --accent-color: #0040ff;
   --glass-bg: rgba(255, 255, 255, 0);
-  --shadow-dark: rgba(0, 0, 0, 0.7);
+  --shadow-dark: rgba(13, 48, 248, 0.7);
   --shadow-light: rgba(255, 255, 255, 0);
   --font-family-body: 'Open Sans', sans-serif;
   --font-family-heading: 'Montserrat', sans-serif;
@@ -97,7 +97,7 @@ h2 {
   cursor: pointer;
   transition: background-color 0.4s ease, color 0.4s ease, box-shadow 0.4s ease;
   user-select: none;
-  box-shadow: 0 4px 20px rgba(0, 68, 255, 0.35);
+  box-shadow: 0 4px 20px rgba(255, 255, 255, 0.726);
   backdrop-filter: brightness(1.1);
 }
 
@@ -105,14 +105,14 @@ h2 {
 .profile-link:focus {
   background-color: var(--accent-color);
   color: var(--primary-color);
-  box-shadow: 0 6px 30px rgba(89, 89, 90, 0.65);
+  box-shadow: 0 6px 30px rgba(255, 255, 255, 0.65);
   outline: none;
   transform: scale(1.05);
 }
 
 /* Upload section */
 .upload {
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(232, 232, 245, 0.95);
   color: #222;
   padding: 1.5rem 2rem;
   margin: 2rem 0;

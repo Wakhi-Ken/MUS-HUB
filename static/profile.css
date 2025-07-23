@@ -1,134 +1,188 @@
-/* Import fonts */
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500&family=Poppins&display=swap');
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Open+Sans&display=swap');
 
-/* Base variables */
+/* Root variables (same as index.css) */
 :root {
-  --background: #1a1a2e;
-  --container-bg: rgba(25, 39, 52, 0.9);
-  --section-bg: rgba(34, 48, 60, 0.85);
+  --background-color: rgba(26, 26, 46, 0.3);
+  --color: #ffffff;
+  --primary-color: #0f3460;
   --accent-color: #0044ff;
-  --text-color: #ffffff;
-  --muted-color: #8899a6;
-  --border-color: rgba(255, 255, 255, 0.2);
-  --glass-highlight: rgba(255, 255, 255, 0.2);
+  --glass-bg: rgba(255, 255, 255, 0);
+  --shadow-dark: rgba(0, 0, 0, 0.7);
+  --shadow-light: rgba(255, 255, 255, 0);
+  --font-family-body: 'Open Sans', sans-serif;
+  --font-family-heading: 'Montserrat', sans-serif;
 }
 
-/* Container */
+/* Body background and layout (exactly like index.css) */
+body {
+  font-family: var(--font-family-body);
+  background-image:
+    linear-gradient(var(--background-color), var(--background-color)),
+    url('https://images.unsplash.com/uploads/1412282232015a06e258a/4bdd2a58?fm=jpg&q=60&w=3000');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-blend-mode: multiply;
+  color: var(--color);
+  min-height: 100vh;
+  padding: 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  overflow-y: auto;
+  margin: 0;
+}
+
+/* Profile container with glass effect and shadows, like .container in index.css */
 .profile-container {
-  max-width: 800px;
-  margin: 60px auto;
-  padding: 30px;
-  background: var(--container-bg);
+  position: relative;
+  z-index: 2;
+  background: var(--glass-bg, rgba(255, 255, 255, 0.05));
   border-radius: 20px;
-  box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
-  color: var(--text-color);
-  font-family: 'Poppins', sans-serif;
-  backdrop-filter: blur(15px);
-  width: 90%;
-  box-sizing: border-box;
+  box-shadow:
+    0 12px 48px var(--shadow-dark),
+    inset 0 0 40px var(--shadow-light);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  padding: 2.5rem 3rem;
+  max-width: 800px;
+  width: 90vw;
+  animation: slideUp 1.2s ease-out forwards;
+  transition: box-shadow 0.3s ease;
+  color: var(--color);
 }
 
-/* Header: Username */
+/* Hover glow for profile container */
+.profile-container:hover {
+  box-shadow:
+    0 20px 64px var(--shadow-dark),
+    inset 0 0 60px var(--shadow-light);
+}
+
+/* Profile Header - use heading font, big & bold */
 .profile-header {
-  font-family: 'Oswald', sans-serif;
+  font-family: var(--font-family-heading);
+  font-weight: 800;
   font-size: 2.5rem;
-  font-weight: 500;
+  color: var(--accent-color);
   text-align: center;
-  margin-bottom: 40px;
-  color: var(--text-color);
+  margin-bottom: 3rem;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  text-shadow: 0 0 12px var(--accent-color);
+  user-select: none;
 }
 
-/* Sections */
+/* Profile sections styling - mimic index.css .upload style */
 .profile-section {
-  background: var(--section-bg);
-  padding: 24px;
-  border-radius: 16px;
-  margin-bottom: 30px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  color: #222;
+  padding: 1.5rem 2rem;
+  margin-bottom: 2rem;
+  border-radius: 18px;
+  box-shadow:
+    0 10px 24px rgba(0, 0, 0, 0.16),
+    inset 0 0 16px rgba(31, 21, 177, 0.671);
+  transition: box-shadow 0.3s ease;
+  color: var(--color);
 }
 
-/* Section Headings */
+.profile-section:hover {
+  box-shadow:
+    0 14px 32px rgba(0, 0, 0, 0.25),
+    inset 0 0 24px rgba(21, 54, 245, 0.8);
+}
+
+/* Section headings - like index.css headings */
 .profile-section h3 {
-  font-family: 'Oswald', sans-serif;
-  font-size: 1.6rem;
-  font-weight: 500;
-  margin-bottom: 20px;
-  color: var(--text-color);
+  font-family: var(--font-family-heading);
+  font-weight: 700;
+  font-size: 1.8rem;
+  color: var(--accent-color);
+  margin-bottom: 1rem;
+  user-select: none;
 }
 
-/* Bio Text */
-.bio-text {
-  font-size: 1rem;
-  line-height: 1.6;
-  color: var(--text-color);
-}
-
-/* Info Block */
+/* Bio text & info groups */
+.bio-text,
 .info-group {
-  margin-bottom: 24px;
+  font-family: var(--font-family-body);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--color);
+  margin-bottom: 1rem;
 }
 
-/* Form */
-.form-group {
-  margin-top: 24px;
-}
-
+/* Form styles (textareas and buttons) same as index.css */
 .form-group textarea {
+  font-family: var(--font-family-body);
   width: 100%;
-  min-height: 100px;
-  margin-bottom: 16px;
-  padding: 14px 18px;
-  border-radius: 16px;
-  border: 1px solid var(--glass-highlight);
-  background: rgba(255, 255, 255, 0.05);
-  color: #ffffff;
-  font-size: 1rem;
-  resize: vertical;
-  font-family: 'Poppins', sans-serif;
+  min-height: 120px;
+  padding: 14px 16px;
+  margin-top: 12px;
+  border-radius: 12px;
+  border: 1.5px solid #181818a2;
+  font-size: 1.1rem;
+  color: var(--color);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 0 12px rgba(0,0,0,0.1);
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  resize: vertical;
+  outline: none;
 }
 
 .form-group textarea:focus {
   border-color: var(--accent-color);
-  box-shadow: 0 0 6px var(--accent-color);
-  outline: none;
+  box-shadow: 0 0 18px var(--accent-color);
 }
 
-.form-group button {
-  padding: 12px 24px;
-  background-color: var(--accent-color);
-  border: none;
-  border-radius: 12px;
-  color: white;
+/* Buttons with index.css styling */
+.form-group button,
+.upload-list form button {
+  font-family: var(--font-family-heading);
+  background: var(--accent-color);
+  color: var(--primary-color);
+  font-weight: 700;
   font-size: 1rem;
-  font-weight: 600;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 14px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  user-select: none;
+  box-shadow: 0 4px 16px rgba(252, 252, 252, 0.4);
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  margin-top: 1rem;
 }
 
-.form-group button:hover {
-  background-color: #0033cc;
+.form-group button:hover,
+.upload-list form button:hover {
+  background-color: var(--primary-color);
+  color: white;
+  transform: scale(1.07);
+  box-shadow: 0 6px 24px rgba(255, 255, 255, 0.75);
 }
 
-/* Flash Messages */
+/* Flash messages styling */
 .flashes {
   list-style: none;
+  margin-top: 1rem;
   padding: 0;
-  margin-top: 20px;
+  text-align: center;
 }
 
 .flashes li {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: #00aaff;
-  padding: 14px 16px;
-  margin: 10px 0;
-  border-radius: 12px;
-  font-weight: 700;
-  box-shadow: 0 0 15px rgba(61, 62, 78, 0.6);
-  letter-spacing: 0.5px;
+  background: rgba(255, 0, 0, 0.1);
+  border: 1px solid rgba(30, 2, 151, 0.2);
+  color: var(--color);
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 6px;
+  animation: slideFadeOut 1s ease forwards;
 }
 
-/* Comments & Uploads */
+/* Comments and uploads lists */
 .comment-list,
 .upload-list {
   list-style: none;
@@ -139,13 +193,14 @@
 .upload-list li {
   display: flex;
   justify-content: space-between;
-  background-color: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.1);
   padding: 12px 16px;
   margin-bottom: 10px;
   border-radius: 12px;
-  font-size: 0.95rem;
-  font-family: 'Poppins', sans-serif;
-  color: #f0f0f0;
+  font-size: 1rem;
+  font-family: var(--font-family-body);
+  color: var(--color);
+  user-select: none;
 }
 
 .comment-list span,
@@ -154,92 +209,114 @@
   padding-right: 10px;
 }
 
-/* Logout */
+/* Logout button styling */
 .logout-wrapper {
   text-align: center;
-  margin-top: 40px;
+  margin-top: 3rem;
 }
 
 .logout-link {
-  font-family: 'Oswald', sans-serif;
+  font-family: var(--font-family-heading);
+  font-weight: 700;
   font-size: 1.2rem;
-  font-weight: 500;
-  color: #ffffff;
+  color: var(--color);
   text-decoration: none;
   padding: 12px 24px;
-  border: 2px solid #ffffff33;
+  border: 2px solid rgba(255, 255, 255, 0.2);
   border-radius: 12px;
   transition: background 0.3s ease, color 0.3s ease;
+  user-select: none;
+  display: inline-block;
 }
 
 .logout-link:hover {
-  background: #ffffff22;
-  color: #00aaff;
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--accent-color);
 }
 
-/* Responsive */
+/* Animations */
+@keyframes slideFadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Responsive adjustments (same breakpoints as index.css) */
 @media (max-width: 768px) {
   .profile-container {
-    max-width: 95%;
+    padding: 2rem;
+    max-width: 95vw;
     margin: 40px auto;
-    padding: 20px;
   }
 
   .profile-header {
     font-size: 2rem;
-    margin-bottom: 30px;
+    margin-bottom: 2rem;
   }
 
   .profile-section {
-    padding: 18px;
-    margin-bottom: 25px;
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 1.5rem;
   }
 
   .profile-section h3 {
-    font-size: 1.4rem;
-    margin-bottom: 15px;
+    font-size: 1.5rem;
   }
 
-  .bio-text {
-    font-size: 0.95rem;
+  .bio-text,
+  .info-group {
+    font-size: 1rem;
   }
 
   .form-group button {
-    padding: 10px 20px;
     font-size: 0.95rem;
+    padding: 10px 20px;
   }
 }
 
 @media (max-width: 480px) {
   .profile-container {
-    max-width: 100%;
+    padding: 1.5rem;
     margin: 30px 1rem;
-    padding: 15px;
   }
 
   .profile-header {
     font-size: 1.6rem;
-    margin-bottom: 20px;
+    margin-bottom: 1.5rem;
   }
 
   .profile-section {
-    padding: 14px;
-    margin-bottom: 20px;
+    padding: 1rem 1rem;
+    margin-bottom: 1rem;
   }
 
   .profile-section h3 {
-    font-size: 1.2rem;
-    margin-bottom: 12px;
+    font-size: 1.3rem;
   }
 
-  .bio-text {
+  .bio-text,
+  .info-group {
     font-size: 0.9rem;
   }
 
   .form-group button {
-    padding: 8px 16px;
     font-size: 0.9rem;
+    padding: 8px 16px;
   }
 }
-
-

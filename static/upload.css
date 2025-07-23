@@ -1,90 +1,77 @@
+/* Import Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Open+Sans&display=swap');
+
+/* Root Variables */
 :root {
-  --background: #1a1a2e;
+  --background-color: rgba(26, 26, 46, 0.3);
   --color: #ffffff;
   --primary-color: #0f3460;
   --accent-color: #0044ff;
-  --secondary-color: #8B4513;
-  --glass-bg: rgba(255, 255, 255, 0.08);
+  --glass-bg: rgba(255, 255, 255, 0.05);
   --shadow-dark: rgba(0, 0, 0, 0.7);
-  --shadow-light: rgba(255, 255, 255, 0.1);
-  --font-family: 'Poppins', sans-serif;
+  --shadow-light: rgba(37, 30, 100, 0.616);
+  --font-family-heading: 'Montserrat', sans-serif;
+  --font-family-body: 'Open Sans', sans-serif;
 }
 
+/* Reset & Base */
 * {
   box-sizing: border-box;
 }
 
 body {
-  font-family: var(--font-family);
-  background: linear-gradient(135deg, var(--background), var(--primary-color)),
-              url('https://images.unsplash.com/uploads/1412282232015a06e258a/4bdd2a58?fm=jpg&q=60&w=3000');
+  margin: 0;
+  padding: 20px;
+  font-family: var(--font-family-body);
+  background-image:
+    linear-gradient(var(--background-color), var(--background-color)),
+    url('https://images.unsplash.com/uploads/1412282232015a06e258a/4bdd2a58?fm=jpg&q=60&w=3000');
   background-size: cover;
   background-position: center;
-  min-height: 100vh;
-  margin: 0;
-  padding: 0;
+  background-repeat: no-repeat;
+  background-blend-mode: multiply;
   color: var(--color);
   display: flex;
-  align-items: center;
   justify-content: center;
-  animation: fade 6s ease-in-out infinite alternate;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow-y: auto;
 }
 
-/* Fade animation */
-@keyframes fade {
-  0% { opacity: 1; }
-  100% { opacity: 0.92; }
-}
-
-/* Upload form wrapper */
+/* Upload Form Container */
 .upload-form-wrapper {
   background: var(--glass-bg);
   border-radius: 20px;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  box-shadow:
-    0 10px 40px var(--shadow-dark),
-    inset 0 0 30px var(--shadow-light);
-  padding: 2.5rem 2rem;
+  box-shadow: 0 12px 48px var(--shadow-dark), inset 0 0 40px var(--shadow-light);
+  padding: 2.5rem 3rem;
   width: 100%;
-  max-width: 480px;
+  max-width: 500px;
   margin: 2rem;
-  animation: fadeIn 1s ease-in-out forwards;
+  animation: slideUp 1s ease-out forwards;
   transition: box-shadow 0.4s ease;
 }
 
 .upload-form-wrapper:hover {
-  box-shadow:
-    0 15px 50px rgba(0, 0, 0, 0.85),
-    inset 0 0 40px var(--shadow-light);
+  box-shadow: 0 20px 64px var(--shadow-dark), inset 0 0 60px var(--shadow-light);
 }
 
-/* FadeIn animation */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Headline */
+/* Heading */
 .upload-form-wrapper h1 {
-  text-align: center;
-  font-size: 2.4rem;
+  font-family: var(--font-family-heading);
+  font-size: 2.3rem;
   font-weight: 800;
-  margin-bottom: 2rem;
   color: var(--accent-color);
+  text-align: center;
+  margin-bottom: 2rem;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
   text-shadow: 0 0 15px var(--accent-color);
-  letter-spacing: 0.05em;
 }
 
-/* File input */
+/* File Input */
 input[type="file"] {
   padding: 14px;
   border-radius: 12px;
@@ -95,9 +82,10 @@ input[type="file"] {
   width: 100%;
   cursor: pointer;
   margin-top: 1rem;
-  transition: background-color 0.3s ease, border-color 0.3s ease;
-  font-weight: 500;
+  font-family: var(--font-family-body);
+  font-weight: 600;
   letter-spacing: 0.03em;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 input[type="file"]:hover,
@@ -107,11 +95,12 @@ input[type="file"]:focus {
   outline: none;
 }
 
-/* Submit button */
+/* Submit Button */
 button {
   width: 100%;
   padding: 14px;
   font-size: 1.15rem;
+  font-family: var(--font-family-heading);
   font-weight: 700;
   border: none;
   border-radius: 12px;
@@ -122,7 +111,6 @@ button {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
   letter-spacing: 0.05em;
-  user-select: none;
 }
 
 button:hover,
@@ -132,7 +120,7 @@ button:focus {
   outline: none;
 }
 
-/* Flash messages */
+/* Flash Messages */
 .flashes {
   list-style: none;
   padding: 0;
@@ -146,8 +134,21 @@ button:focus {
   padding: 14px 16px;
   border-radius: 12px;
   font-weight: 700;
+  font-family: var(--font-family-body);
   box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
   letter-spacing: 0.02em;
+}
+
+/* Animations */
+@keyframes slideUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 /* Responsive */

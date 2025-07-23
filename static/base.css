@@ -104,6 +104,19 @@ nav {
     cursor: pointer;
     position: relative;
     outline: none;
+    border-radius: 8px;
+    padding: 6px 10px;
+    background: rgba(255 255 255 / 0.1);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    user-select: none;
+    gap: 8px;
+}
+
+.search-container:hover,
+.search-container:focus-visible,
+.search-container.active {
+    background-color: rgba(255 255 255 / 0.2);
+    box-shadow: 0 0 8px var(--accent-color);
 }
 
 .search-icon {
@@ -111,32 +124,36 @@ nav {
     width: 20px;
     height: 20px;
     transition: fill 0.3s ease;
+    flex-shrink: 0;
 }
 
 .search-container:hover .search-icon,
-.search-container:focus .search-icon {
+.search-container:focus-visible .search-icon,
+.search-container.active .search-icon {
     fill: var(--accent-color);
 }
 
 #search-input {
     width: 0;
     opacity: 0;
-    padding: 6px 10px;
+    padding: 8px 14px;
     border-radius: 8px;
     border: none;
-    background: var(--glass-bg);
-    color: var(--color);
-    font-size: 1rem;
+    background: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: 600;
     transition: width 0.3s ease, opacity 0.3s ease;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(12px);
     outline: none;
     pointer-events: none;
-    margin-left: 8px;
     white-space: nowrap;
+    min-width: 0;
+    caret-color: var(--accent-color);
 }
 
 .search-container.active #search-input {
-    width: 160px;
+    width: 180px;
     opacity: 1;
     pointer-events: auto;
 }
@@ -270,7 +287,6 @@ main.container {
         max-height: 0;
         overflow: hidden;
         transition: max-height 0.3s ease;
-        /* Hide nav initially */
     }
 
     .nav-list.active {

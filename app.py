@@ -206,7 +206,7 @@ def public_profile(user_id):
     uploads = Content.query.filter_by(UserID=user_id).order_by(Content.UploadDate.desc()).all()
     return render_template('public_profile.html', user=user, uploads=uploads)
 
-# ----------- Search Route -----------
+# ----------- UPDATED Search Route -----------
 @app.route('/search')
 def search():
     user_id = session.get('user_id')
@@ -224,14 +224,19 @@ def search():
         (User.Role.ilike(f'%{query}%'))
     ).all()
 
-    uploads = Content.query.filter(Content.FilePath.ilike(f'%{query}%')).all()
+    uploads = Content.query.filter(
+        (Content.FilePath.ilike(f'%{query}%')) |
+        (Content.UserID.in_([user.UserID for user in users]))
+    ).all()
 
     for upload in uploads:
         upload.user = User.query.get(upload.UserID)
 
     return render_template('search_results.html', query=query, users=users, uploads=uploads)
 
+# ------------------ Run App ------------------
 if __name__ == '__main__':
     app.run(debug=True)
+
 
 

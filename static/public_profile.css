@@ -1,129 +1,149 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Open+Sans&display=swap');
+
+/* Root Variables - Glassmorphic style */
 :root {
-  --background: #15202b;
-  --container-bg: #192734;
-  --section-bg: #22303c;
-  --accent-color: #1da1f2;
-  --text-light: #f5f8fa;
-  --text-muted: #8899a6;
-  --border-color: #38444d;
-  --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  --radius: 16px;
-  --small-radius: 10px;
-  --transition-speed: 0.3s;
-  --shadow-dark: rgba(0, 0, 0, 0.5);
-  --glass-bg: rgba(255 255 255 / 0.05);
+  --background-color: rgba(26, 26, 46, 0.3);
+  --color: #ffffff;
+  --primary-color: #0f3460;
+  --accent-color: #0044ff;
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --shadow-dark: rgba(0, 0, 0, 0.7);
+  --shadow-light: rgba(37, 30, 100, 0.616);
+  --font-family-heading: 'Montserrat', sans-serif;
+  --font-family-body: 'Open Sans', sans-serif;
 }
 
+/* Body */
 body {
   margin: 0;
   padding: 20px;
-  font-family: var(--font-family);
-  background-color: var(--background);
-  color: var(--text-light);
+  font-family: var(--font-family-body);
+  background-image:
+    linear-gradient(var(--background-color), var(--background-color)),
+    url('https://images.unsplash.com/uploads/1412282232015a06e258a/4bdd2a58?fm=jpg&q=60&w=3000');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-blend-mode: multiply;
+  color: var(--color);
   display: flex;
   justify-content: center;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow-y: auto;
 }
 
-/* Container */
+/* Public profile container */
 .public-profile-container {
   width: 600px;
   max-width: 95vw;
-  background: var(--container-bg);
-  border-radius: var(--radius);
-  box-shadow: 0 12px 30px var(--shadow-dark);
-  padding: 30px 35px;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--glass-bg);
-  transition: box-shadow var(--transition-speed) ease;
+  background: var(--glass-bg);
+  border-radius: 20px;
+  box-shadow: 0 12px 48px var(--shadow-dark), inset 0 0 40px var(--shadow-light);
+  padding: 2.5rem 3rem;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  transition: box-shadow 0.3s ease;
+  animation: slideUp 1s ease-out forwards;
   box-sizing: border-box;
+  color: var(--color);
 }
 
 .public-profile-container:hover {
-  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.75);
+  box-shadow: 0 20px 64px var(--shadow-dark), inset 0 0 60px var(--shadow-light);
 }
 
 /* Header */
 .public-header {
-  font-size: 2.2rem;
-  font-weight: 900;
+  font-family: var(--font-family-heading);
+  font-weight: 800;
+  font-size: 2.5rem;
   color: var(--accent-color);
-  margin-bottom: 12px;
-  border-bottom: 2px solid var(--border-color);
-  padding-bottom: 12px;
-  letter-spacing: 0.06em;
+  text-align: center;
+  margin-bottom: 3rem;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  text-shadow: 0 0 12px var(--accent-color);
   user-select: none;
 }
 
 /* Role */
 .user-role {
-  font-size: 0.9rem;
+  font-family: var(--font-family-heading);
+  font-size: 1rem;
   font-weight: 700;
   color: var(--accent-color);
-  margin-bottom: 30px;
   text-transform: uppercase;
+  text-align: center;
   letter-spacing: 0.1em;
+  margin-bottom: 2rem;
   user-select: none;
 }
 
 /* Bio */
 .user-bio {
-  font-size: 1rem;
+  font-size: 1.1rem;
+  font-family: var(--font-family-body);
   line-height: 1.6;
-  color: var(--text-light);
-  background: var(--section-bg);
-  border-radius: 14px;
-  padding: 20px 25px;
-  margin-bottom: 35px;
-  box-shadow: inset 0 0 8px rgba(255 255 255 / 0.1);
-  transition: background var(--transition-speed) ease;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 18px;
+  padding: 1.5rem 2rem;
+  margin-bottom: 2rem;
+  box-shadow: inset 0 0 16px rgba(26, 86, 197, 0.658);
   user-select: text;
+  transition: box-shadow 0.3s ease;
+}
+
+.user-bio:hover {
+  box-shadow: inset 0 0 24px rgba(7, 74, 197, 0.8);
 }
 
 /* Uploads section */
 .uploads-section {
-  background: var(--section-bg);
-  padding: 25px 30px;
-  border-radius: 14px;
-  box-shadow: inset 0 0 14px rgba(255 255 255 / 0.08);
-  transition: background var(--transition-speed) ease;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 1.5rem 2rem;
+  border-radius: 18px;
+  box-shadow: inset 0 0 16px rgba(11, 88, 231, 0.6);
+  transition: box-shadow 0.3s ease;
+  margin-bottom: 2rem;
+}
+
+.uploads-section:hover {
+  box-shadow: inset 0 0 24px rgba(13, 65, 236, 0.644);
 }
 
 .uploads-section h3 {
+  font-family: var(--font-family-heading);
+  font-weight: 700;
+  font-size: 1.8rem;
   color: var(--accent-color);
-  font-size: 1.3rem;
-  font-weight: 800;
-  margin-bottom: 18px;
-  border-bottom: 2px solid var(--border-color);
-  padding-bottom: 10px;
-  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
   user-select: none;
 }
 
-/* Each upload */
+/* Upload item */
 .upload-item {
-  background: var(--background);
-  border-radius: var(--small-radius);
-  padding: 18px 22px;
-  margin-bottom: 18px;
-  box-shadow: inset 0 0 0 1.5px var(--border-color);
-  transition: box-shadow var(--transition-speed) ease, background var(--transition-speed) ease;
-  cursor: default;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  padding: 1rem 1.4rem;
+  margin-bottom: 1rem;
+  box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.2);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
 .upload-item:hover {
   box-shadow: inset 0 0 4px 2px var(--accent-color);
-  background: #1c2737;
+  background: rgba(255, 255, 255, 0);
 }
 
-/* Upload text */
 .upload-item p {
-  margin: 8px 0;
   font-size: 1rem;
-  color: var(--text-light);
+  color: var(--color);
   line-height: 1.5;
+  margin: 8px 0;
+  font-family: var(--font-family-body);
 }
 
 /* Media */
@@ -137,108 +157,65 @@ video {
   outline: none;
 }
 
-/* Small text */
-small {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  user-select: none;
-}
-
-/* Links */
-a {
-  color: var(--accent-color);
-  text-decoration: none;
-  font-weight: 700;
-  transition: color var(--transition-speed) ease;
-}
-
-a:hover,
-a:focus {
-  color: #73a9ff;
-  text-decoration: underline;
-  outline: none;
-}
-
 /* Responsive */
-@media (max-width: 700px) {
+@media (max-width: 768px) {
   .public-profile-container {
-    width: 90vw;
-    padding: 20px 25px;
+    padding: 2rem;
   }
 
   .public-header {
-    font-size: 1.8rem;
-    margin-bottom: 10px;
+    font-size: 2rem;
+    margin-bottom: 2rem;
   }
 
-  .user-role {
-    font-size: 0.85rem;
-    margin-bottom: 20px;
+  .uploads-section h3 {
+    font-size: 1.5rem;
+  }
+
+  .upload-item p,
+  .user-bio {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .public-profile-container {
+    padding: 1.5rem;
+    margin: 1rem;
+  }
+
+  .public-header {
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .uploads-section h3 {
+    font-size: 1.3rem;
+  }
+
+  .upload-item {
+    padding: 12px 16px;
+  }
+
+  .upload-item p {
+    font-size: 0.95rem;
   }
 
   .user-bio {
     font-size: 0.95rem;
-    padding: 16px 20px;
-    margin-bottom: 30px;
-  }
-
-  .uploads-section {
-    padding: 20px 25px;
-  }
-
-  .uploads-section h3 {
-    font-size: 1.1rem;
-    margin-bottom: 14px;
-    padding-bottom: 8px;
-  }
-
-  .upload-item {
-    padding: 14px 18px;
-    margin-bottom: 14px;
-  }
-
-  .upload-item p {
-    font-size: 0.9rem;
   }
 }
 
-@media (max-width: 400px) {
-  .public-profile-container {
-    width: 95vw;
-    padding: 15px 20px;
+/* Animations */
+@keyframes slideUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
   }
-
-  .public-header {
-    font-size: 1.5rem;
-  }
-
-  .user-role {
-    font-size: 0.8rem;
-    margin-bottom: 15px;
-  }
-
-  .user-bio {
-    font-size: 0.9rem;
-    padding: 14px 18px;
-    margin-bottom: 25px;
-  }
-
-  .uploads-section {
-    padding: 15px 18px;
-  }
-
-  .uploads-section h3 {
-    font-size: 1rem;
-    margin-bottom: 12px;
-    padding-bottom: 6px;
-  }
-
-  .upload-item {
-    padding: 12px 15px;
-    margin-bottom: 12px;
-  }
-
-  .upload-item p {
-    font-size: 0.85rem;
+  to {
+    transform: translateY(0);
+    opacity: 1;
   }
 }
+
+

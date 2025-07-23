@@ -132,6 +132,7 @@
     animation: glow 0.6s ease-in-out;
   }
   
+  /* Toggle password button styling */
   #togglePassword,
   #toggleConfirmPassword {
     padding: 12px 16px;
@@ -146,6 +147,8 @@
     transition: background-color 0.3s ease, transform 0.2s ease;
     white-space: nowrap;
     margin-top: 0.5rem;
+    /* vertically center with input */
+    align-self: flex-start;
   }
   
   #togglePassword:hover,
@@ -154,6 +157,16 @@
     transform: scale(1.05);
   }
   
+  /* Adjust toggle button vertical alignment */
+  .password-row button {
+    margin-top: 0;
+    height: 48px; /* same as input height approx */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Submit button */
   button[type="submit"] {
     width: 100%;
     padding: 14px;
@@ -269,7 +282,8 @@
   }
   
   @keyframes float {
-    0%, 100% {
+    0%,
+    100% {
       transform: translate(0, 0);
     }
     50% {
