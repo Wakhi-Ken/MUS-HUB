@@ -1,56 +1,65 @@
 :root {
-    --background: #1a1a2e;
+    --background-color: rgba(26, 26, 46, 0.7);
     --color: #ffffff;
     --primary-color: #0f3460;
     --accent-color: #022188;
     --glass-bg: rgba(255, 255, 255, 0.05);
-}
-
-* {
+  }
+  
+  * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-}
-
-html {
+  }
+  
+  html {
     scroll-behavior: smooth;
-}
-
-body {
+  }
+  
+  body {
     font-family: "Poppins", sans-serif;
-    background: linear-gradient(135deg, #1a1a2e, #0f3460);
+    background-image:
+      linear-gradient(var(--background-color), var(--background-color)),
+      url('https://images.unsplash.com/uploads/1412282232015a06e258a/4bdd2a58?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8bXVzaWMlMjBiYWNrZ3JvdW5kfGVufDB8fDB8fHww');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-blend-mode: multiply;
+  
     color: var(--color);
     letter-spacing: 1px;
-    height: 100vh;
-    overflow: hidden;
+    min-height: 100vh;
+    padding: 20px 0;
     display: flex;
     align-items: center;
     justify-content: center;
     animation: fadeIn 1s ease-in-out;
-}
-
-a {
+    flex-direction: column;
+    overflow-y: auto;
+  }
+  
+  a {
     text-decoration: none;
     color: var(--accent-color);
     transition: color 0.3s ease;
-}
-
-a:hover {
+  }
+  
+  a:hover {
     color: #ffffff;
-}
-
-.container {
+  }
+  
+  .container {
     position: relative;
     z-index: 2;
     animation: slideUp 1.2s ease-out forwards;
-}
-
-.login-container {
+  }
+  
+  .login-container {
     position: relative;
     width: 22.2rem;
-}
-
-.form-container {
+  }
+  
+  .form-container {
     background: var(--glass-bg);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 15px;
@@ -59,30 +68,34 @@ a:hover {
     padding: 2.5rem;
     transform: scale(0.95);
     transition: transform 0.3s ease;
-}
-
-.form-container:hover {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+  
+  .form-container:hover {
     transform: scale(1);
-}
-
-h1 {
+  }
+  
+  h1 {
     font-size: 2.5rem;
     text-align: center;
     margin-bottom: 0.5rem;
     animation: pulse 2s infinite alternate;
-}
-
-p.opacity {
+  }
+  
+  .opacity {
     opacity: 0.7;
     text-align: center;
     margin-bottom: 2rem;
-}
-
-input[type="text"],
-input[type="password"] {
-    width: 100%;
-    padding: 14px;
-    margin: 1rem 0;
+    font-size: 1rem;
+    line-height: 1.3;
+  }
+  
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  select {
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 8px;
@@ -91,15 +104,63 @@ input[type="password"] {
     outline: none;
     transition: all 0.3s ease;
     backdrop-filter: blur(10px);
-}
-
-input:focus {
+    letter-spacing: 0.5px;
+  }
+  
+  input[type="text"],
+  input[type="email"],
+  select {
+    width: 100%;
+    padding: 14px;
+    margin: 0.5rem 0 1rem 0;
+  }
+  
+  .password-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1rem;
+  }
+  
+  .password-row input[type="password"] {
+    flex: 1;
+    padding: 14px;
+    margin: 0.5rem 0 1rem 0;
+  }
+  
+  input::placeholder,
+  select:invalid {
+    color: rgba(255, 255, 255, 0.5);
+  }
+  
+  input:focus,
+  select:focus {
     border-color: var(--accent-color);
     box-shadow: 0 0 12px var(--accent-color);
     animation: glow 0.6s ease-in-out;
-}
-
-button {
+  }
+  
+  #togglePassword {
+    padding: 12px 16px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 8px;
+    background: var(--accent-color);
+    color: white;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    white-space: nowrap;
+    margin-top: 0.5rem;
+  }
+  
+  #togglePassword:hover {
+    background: #0033cc;
+    transform: scale(1.05);
+  }
+  
+  button[type="submit"] {
     width: 100%;
     padding: 14px;
     border: none;
@@ -111,39 +172,53 @@ button {
     color: white;
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-button:hover {
+    user-select: none;
+  }
+  
+  button[type="submit"]:hover,
+  button[type="submit"]:focus {
     transform: scale(1.05);
     box-shadow: 0 0 20px var(--accent-color);
-}
-
-.register-forget {
-    margin-top: 1rem;
+  }
+  
+  .register-forget {
+    margin-top: 0.5rem;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     font-size: 0.9rem;
     opacity: 0.85;
-}
-
-.flashes {
+  }
+  
+  .register-forget a {
+    color: var(--accent-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .register-forget a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+  }
+  
+  .flashes {
     list-style: none;
     text-align: center;
     margin-top: 1rem;
     padding: 0;
-}
-
-.flashes li {
+  }
+  
+  .flashes li {
     background: rgba(255, 0, 0, 0.1);
     border: 1px solid rgba(30, 2, 151, 0.2);
-    color: #002064;
+    color: #ffffff;
     padding: 10px;
     margin: 5px 0;
     border-radius: 6px;
     animation: slideFadeIn 0.5s ease forwards;
-}
-
-.circle {
+  }
+  
+  /* Circles for background decoration */
+  .circle {
     position: absolute;
     width: 8rem;
     height: 8rem;
@@ -151,79 +226,104 @@ button:hover {
     border-radius: 50%;
     z-index: 0;
     animation: float 6s ease-in-out infinite;
-}
-
-.circle-one {
+  }
+  
+  .circle-one {
     top: 0;
     left: 0;
     transform: translate(-50%, -50%);
     animation-delay: 1s;
-}
-
-.circle-two {
+  }
+  
+  .circle-two {
     bottom: 0;
     right: 0;
     transform: translate(50%, 50%);
     animation-delay: 2s;
-}
-
-/* Animations */
-@keyframes fadeIn {
+  }
+  
+  /* Animations */
+  @keyframes fadeIn {
     from {
-        opacity: 0;
-        transform: translateY(10%);
+      opacity: 0;
+      transform: translateY(10%);
     }
     to {
-        opacity: 1;
-        transform: translateY(0);
+      opacity: 1;
+      transform: translateY(0);
     }
-}
-
-@keyframes slideUp {
+  }
+  
+  @keyframes slideUp {
     from {
-        transform: translateY(50px);
-        opacity: 0;
+      transform: translateY(50px);
+      opacity: 0;
     }
     to {
-        transform: translateY(0);
-        opacity: 1;
+      transform: translateY(0);
+      opacity: 1;
     }
-}
-
-@keyframes pulse {
+  }
+  
+  @keyframes pulse {
     0% {
-        text-shadow: 0 0 0 transparent;
+      text-shadow: 0 0 0 transparent;
     }
     100% {
-        text-shadow: 0 0 15px var(--accent-color);
+      text-shadow: 0 0 15px var(--accent-color);
     }
-}
-
-@keyframes glow {
+  }
+  
+  @keyframes glow {
     0% {
-        box-shadow: 0 0 5px var(--accent-color);
+      box-shadow: 0 0 5px var(--accent-color);
     }
     100% {
-        box-shadow: 0 0 15px var(--accent-color);
+      box-shadow: 0 0 15px var(--accent-color);
     }
-}
-
-@keyframes slideFadeIn {
+  }
+  
+  @keyframes slideFadeIn {
     from {
-        opacity: 0;
-        transform: translateY(20px);
+      opacity: 0;
+      transform: translateY(20px);
     }
     to {
-        opacity: 1;
-        transform: translateY(0);
+      opacity: 1;
+      transform: translateY(0);
     }
-}
-
-@keyframes float {
+  }
+  
+  @keyframes float {
     0%, 100% {
-        transform: translate(0, 0);
+      transform: translate(0, 0);
     }
     50% {
-        transform: translate(10px, -10px);
+      transform: translate(10px, -10px);
     }
-}
+  }
+  
+  /* Responsive */
+  @media (max-width: 480px) {
+    .login-container {
+      width: 90vw;
+    }
+  
+    .form-container {
+      padding: 2rem 1.5rem;
+    }
+  
+    button[type="submit"] {
+      font-size: 1.1rem;
+      padding: 12px;
+    }
+  
+    #togglePassword {
+      padding: 10px 14px;
+      font-size: 0.85rem;
+    }
+  }
+  
+
+
+

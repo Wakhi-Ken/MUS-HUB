@@ -1,54 +1,79 @@
 {% extends "base.html" %}
-{% block title %}Join MUS-HUB{% endblock %}
+{% block title %}MUS-HUB | Register{% endblock %}
 
-{% block content %}
-<style>
-  header, nav, footer {
-    display: none !important;
-  }
-</style>
-
-<div class="auth-container">
-  <h1>Welcome to <span style="color: #FFD700;">MUS-HUB</span></h1>
-  <p style="max-width: 600px; margin: 10px auto 30px; font-size: 1.1rem; color: #f5f5f5;">
-    🎶 <strong>MUS-HUB</strong> is the ultimate space where <strong>musicians and listeners unite</strong>. 
-    Share your sounds, connect with talent, and vibe with the rhythm of a creative community. 
-    Whether you’re an artist or a fan, <em>this is your stage</em>.
-  </p>
-
-  <div class="form-container" id="register-form">
-    <form method="POST" action="{{ url_for('register') }}">
-      
-      <div class="input-group">
-        <label for="register-username">Username:</label>
-        <input type="text" id="register-username" name="username" placeholder="Enter your username" required>
-      </div>
-
-      <div class="input-group">
-        <label for="register-email">Email:</label>
-        <input type="email" id="register-email" name="email" placeholder="Enter your email" required>
-      </div>
-
-      <div class="input-group">
-        <label for="register-password">Password:</label>
-        <input type="password" id="register-password" name="password" placeholder="Enter your password" required>
-      </div>
-
-      <div class="input-group">
-        <label for="register-role">Role:</label>
-        <select id="register-role" name="role" required>
-          <option value="" disabled selected>Select your role</option>
-          <option value="Musician">Musician</option>
-          <option value="Listener">Listener</option>
-        </select>
-      </div>
-      
-      <button type="submit">Create Profile</button>
-    </form>
-  </div>
-</div>
+{% block extra_css %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='register.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
 {% endblock %}
 
-<!-- Link to register.css -->
-<link rel="stylesheet" href="{{ url_for('static', filename='register.css') }}">
+{% block content %}
+<div class="container">
+  <div class="register-container">
+    <div class="circle circle-one"></div>
+    <div class="circle circle-two"></div>
+
+    <div class="form-container">
+      <h1>Create Your MUS-HUB Account</h1>
+      <p class="opacity">Join our creative community. Fill in the form below to get started.</p>
+
+      <form action="{{ url_for('register') }}" method="post">
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="email" name="email" placeholder="Email Address" required>
+
+        <select name="user_type" required>
+          <option value="" disabled selected>Select user type</option>
+          <option value="musician">Musician</option>
+          <option value="artist">Artist</option>
+          <option value="producer">Producer</option>
+          <option value="listener">Fan</option>
+        </select>
+
+        <div class="password-row">
+          <input type="password" name="password" placeholder="Password" id="password" required>
+          <button type="button" id="togglePassword" aria-label="Show or hide password">Show</button>
+        </div>
+
+        <div class="password-row">
+          <input type="password" name="confirm_password" placeholder="Confirm Password" id="confirmPassword" required>
+          <button type="button" id="toggleConfirmPassword" aria-label="Show or hide confirm password">Show</button>
+        </div>
+
+        <button type="submit">Register</button>
+      </form>
+
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <ul class="flashes">
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      {% endwith %}
+    </div>
+  </div>
+</div>
+
+<script>
+  const togglePassword = document.getElementById('togglePassword');
+  const passwordInput = document.getElementById('password');
+  togglePassword.addEventListener('click', () => {
+    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+    passwordInput.setAttribute('type', type);
+    togglePassword.textContent = type === 'password' ? 'Show' : 'Hide';
+  });
+
+  const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
+  const confirmPasswordInput = document.getElementById('confirmPassword');
+  toggleConfirmPassword.addEventListener('click', () => {
+    const type = confirmPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+    confirmPasswordInput.setAttribute('type', type);
+    toggleConfirmPassword.textContent = type === 'password' ? 'Show' : 'Hide';
+  });
+</script>
+{% endblock %}
+
+
+
+
 

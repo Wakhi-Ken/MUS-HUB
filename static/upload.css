@@ -1,145 +1,175 @@
 :root {
-    --background: #1a1a2e;
-    --color: #ffffff;
-    --primary-color: #0f3460;
-    --accent-color: #0044ff;
-    --secondary-color: #8B4513;
-    --glass-bg: rgba(255, 255, 255, 0.08);
-    --shadow-dark: rgba(0, 0, 0, 0.7);
-    --shadow-light: rgba(255, 255, 255, 0.1);
-    --font-family: 'Poppins', sans-serif;
+  --background: #1a1a2e;
+  --color: #ffffff;
+  --primary-color: #0f3460;
+  --accent-color: #0044ff;
+  --secondary-color: #8B4513;
+  --glass-bg: rgba(255, 255, 255, 0.08);
+  --shadow-dark: rgba(0, 0, 0, 0.7);
+  --shadow-light: rgba(255, 255, 255, 0.1);
+  --font-family: 'Poppins', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family);
+  background: linear-gradient(135deg, var(--background), var(--primary-color)),
+              url('https://images.unsplash.com/uploads/1412282232015a06e258a/4bdd2a58?fm=jpg&q=60&w=3000');
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  color: var(--color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fade 6s ease-in-out infinite alternate;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Fade animation */
+@keyframes fade {
+  0% { opacity: 1; }
+  100% { opacity: 0.92; }
+}
+
+/* Upload form wrapper */
+.upload-form-wrapper {
+  background: var(--glass-bg);
+  border-radius: 20px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow:
+    0 10px 40px var(--shadow-dark),
+    inset 0 0 30px var(--shadow-light);
+  padding: 2.5rem 2rem;
+  width: 100%;
+  max-width: 480px;
+  margin: 2rem;
+  animation: fadeIn 1s ease-in-out forwards;
+  transition: box-shadow 0.4s ease;
+}
+
+.upload-form-wrapper:hover {
+  box-shadow:
+    0 15px 50px rgba(0, 0, 0, 0.85),
+    inset 0 0 40px var(--shadow-light);
+}
+
+/* FadeIn animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
   }
-  
-  * {
-    box-sizing: border-box;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  body {
-    font-family: var(--font-family);
-    background: linear-gradient(135deg, var(--background), var(--primary-color));
-    background-image: url('https://images.unsplash.com/uploads/1412282232015a06e258a/4bdd2a58?fm=jpg&q=60&w=3000');
-    background-size: cover;
-    background-position: center;
-    min-height: 100vh;
-    margin: 0;
-    padding: 0;
-    color: var(--color);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    animation: fade 6s infinite alternate;
-  }
-  
-  /* Fade animation */
-  @keyframes fade {
-    0% { opacity: 1; }
-    100% { opacity: 0.92; }
-  }
-  
-  /* Upload form wrapper */
+}
+
+/* Headline */
+.upload-form-wrapper h1 {
+  text-align: center;
+  font-size: 2.4rem;
+  font-weight: 800;
+  margin-bottom: 2rem;
+  color: var(--accent-color);
+  text-shadow: 0 0 15px var(--accent-color);
+  letter-spacing: 0.05em;
+}
+
+/* File input */
+input[type="file"] {
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid var(--shadow-light);
+  background-color: rgba(255, 255, 255, 0.07);
+  color: var(--color);
+  font-size: 1rem;
+  width: 100%;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+}
+
+input[type="file"]:hover,
+input[type="file"]:focus {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-color: var(--accent-color);
+  outline: none;
+}
+
+/* Submit button */
+button {
+  width: 100%;
+  padding: 14px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+  color: var(--color);
+  margin-top: 1.75rem;
+  box-shadow: 0 6px 25px rgba(0, 68, 255, 0.6);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+  user-select: none;
+}
+
+button:hover,
+button:focus {
+  transform: scale(1.05);
+  box-shadow: 0 10px 35px rgba(0, 68, 255, 0.85);
+  outline: none;
+}
+
+/* Flash messages */
+.flashes {
+  list-style: none;
+  padding: 0;
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.flashes li {
+  background-color: rgba(255, 0, 0, 0.12);
+  color: #ff5555;
+  padding: 14px 16px;
+  border-radius: 12px;
+  font-weight: 700;
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+  letter-spacing: 0.02em;
+}
+
+/* Responsive */
+@media (max-width: 500px) {
   .upload-form-wrapper {
-    background: var(--glass-bg);
-    border-radius: 20px;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    box-shadow:
-      0 10px 40px var(--shadow-dark),
-      inset 0 0 30px var(--shadow-light);
-    padding: 2.5rem 2rem;
-    width: 100%;
-    max-width: 480px;
-    margin: 2rem;
-    animation: fadeIn 1s ease-in-out;
+    padding: 1.8rem 1.5rem;
+    margin: 1rem;
   }
-  
-  /* FadeIn animation */
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(40px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  /* Headline */
+
   .upload-form-wrapper h1 {
-    text-align: center;
-    font-size: 2.2rem;
-    font-weight: 800;
-    margin-bottom: 1.5rem;
-    color: var(--accent-color);
-    text-shadow: 0 0 10px var(--accent-color);
+    font-size: 1.9rem;
+    margin-bottom: 1.3rem;
   }
-  
-  /* File input */
+
   input[type="file"] {
-    padding: 14px;
-    border-radius: 12px;
-    border: 1px solid var(--shadow-light);
-    background-color: rgba(255, 255, 255, 0.05);
-    color: white;
-    font-size: 1rem;
-    width: 100%;
-    cursor: pointer;
-    margin-top: 1rem;
-    transition: all 0.3s ease;
+    font-size: 0.95rem;
   }
-  
-  input[type="file"]:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-  }
-  
-  /* Submit button */
+
   button {
-    width: 100%;
-    padding: 14px;
-    font-size: 1.1rem;
-    font-weight: bold;
-    border: none;
-    border-radius: 12px;
-    background: linear-gradient(to right, var(--primary-color), var(--accent-color));
-    color: white;
-    margin-top: 1.5rem;
-    box-shadow: 0 4px 20px rgba(0, 68, 255, 0.5);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 28px rgba(0, 68, 255, 0.7);
-  }
-  
-  /* Flash messages */
-  .flashes {
-    list-style: none;
-    padding: 0;
-    margin-top: 1.5rem;
-    text-align: center;
-  }
-  
-  .flashes li {
-    background-color: rgba(255, 0, 0, 0.1);
-    color: red;
+    font-size: 1rem;
     padding: 12px;
-    border-radius: 10px;
-    font-weight: 700;
-    box-shadow: 0 0 12px rgba(255, 0, 0, 0.4);
+    margin-top: 1.3rem;
   }
-  
-  /* Responsive */
-  @media (max-width: 500px) {
-    .upload-form-wrapper {
-      padding: 1.5rem;
-      margin: 1rem;
-    }
-  
-    h1 {
-      font-size: 1.8rem;
-    }
-  }
-  
-  
+}
+

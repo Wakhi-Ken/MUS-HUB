@@ -69,7 +69,9 @@ nav {
     padding-left: 0;
     margin: 0;
     flex-wrap: nowrap;
-    /* No overflow-x: hidden, so no horizontal scroll */
+    transition: max-height 0.3s ease;
+    overflow: hidden;
+    max-height: none;
 }
 
 .nav-list li {
@@ -85,6 +87,7 @@ nav {
     padding: 8px 12px;
     border-radius: 8px;
     transition: color 0.3s ease, background-color 0.3s ease;
+    display: inline-block;
 }
 
 .nav-list li a:hover,
@@ -245,10 +248,18 @@ main.container {
 }
 
 /* Responsive */
+@media (max-width: 1024px) {
+    main.container {
+        max-width: 90%;
+        padding: 20px 10px;
+    }
+}
+
 @media (max-width: 768px) {
     .site-header .container {
         flex-wrap: wrap;
         gap: 10px;
+        justify-content: space-between;
     }
 
     .nav-list {
@@ -256,11 +267,14 @@ main.container {
         align-items: center;
         gap: 12px;
         width: 100%;
-        display: none;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        /* Hide nav initially */
     }
 
     .nav-list.active {
-        display: flex;
+        max-height: 500px; /* Enough for nav items to show */
     }
 
     .nav-list li {
@@ -271,6 +285,7 @@ main.container {
     .nav-list li a {
         font-size: 1.4rem;
         padding: 12px 0;
+        display: block;
     }
 
     .hamburger {
@@ -289,6 +304,7 @@ main.container {
     .search-container {
         width: 100%;
         justify-content: center;
+        margin-top: 10px;
     }
 
     main.container {
@@ -297,3 +313,15 @@ main.container {
     }
 }
 
+/* Hide nav-list initially if js-hidden */
+.nav-list.js-hidden {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+/* Show nav-list smoothly */
+.nav-list.js-visible {
+    opacity: 1;
+    pointer-events: auto;
+}

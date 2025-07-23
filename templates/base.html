@@ -7,8 +7,14 @@
 
   <!-- Global base styles -->
   <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}" />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500&display=swap" rel="stylesheet">
   
-  <!-- Page-specific styles like login.css -->
+  <!-- Expose login status to JS -->
+  <script>
+    window.isUserLoggedIn = {{ 'true' if 'user_id' in session else 'false' }};
+  </script>
+
+  <!-- Page-specific styles -->
   {% block extra_css %}{% endblock %}
 </head>
 <body>
@@ -24,7 +30,7 @@
       </div>
 
       <nav>
-        <ul class="nav-list" id="nav-list">
+        <ul class="nav-list {% if 'user_id' in session %}js-hidden{% endif %}" id="nav-list">
           {% if 'user_id' in session %}
             <li><a href="/">Home</a></li>
             <li><a href="/upload">Upload</a></li>
@@ -72,6 +78,16 @@
   </footer>
 
   <script>
+    // Nav visibility fix to prevent flash
+    document.addEventListener('DOMContentLoaded', () => {
+      const navList = document.getElementById('nav-list');
+      if (window.isUserLoggedIn === true || window.isUserLoggedIn === 'true') {
+        navList.classList.remove('js-hidden');
+        navList.classList.add('js-visible');
+      }
+    });
+
+    // Existing nav toggle scripts
     const hamburger = document.getElementById('hamburger');
     const navList = document.getElementById('nav-list');
     const searchContainer = document.getElementById('search-container');
@@ -136,6 +152,10 @@
       }
     });
   </script>
+
+  <!-- Your extra scripts -->
+  {% block extra_js %}{% endblock %}
 </body>
 </html>
+
 

@@ -18,7 +18,11 @@
 
       <form action="{{ url_for('login') }}" method="post">
         <input type="text" name="username" placeholder="Username" required>
-        <input type="password" name="password" placeholder="Password" required>
+
+        <div class="password-row">
+          <input type="password" name="password" placeholder="Password" id="password" required>
+          <button type="button" id="togglePassword" aria-label="Show or hide password">Show</button>
+        </div>
 
         <div class="register-forget">
           <a href="{{ url_for('register') }}">Register</a>
@@ -40,5 +44,16 @@
     </div>
   </div>
 </div>
+
+<script>
+  const togglePassword = document.getElementById('togglePassword');
+  const passwordInput = document.getElementById('password');
+
+  togglePassword.addEventListener('click', function () {
+    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+    passwordInput.setAttribute('type', type);
+    this.textContent = type === 'password' ? 'Show' : 'Hide';
+  });
+</script>
 {% endblock %}
-s
+
