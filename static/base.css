@@ -341,3 +341,12 @@ main.container {
     opacity: 1;
     pointer-events: auto;
 }
+.logo a {
+    color: inherit;      /* Keep text color */
+    text-decoration: none; /* Remove underline */
+  }
+  
+  .logo a:hover {
+    text-decoration: underline; /* Or some hover effect */
+  }
+  

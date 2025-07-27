@@ -8,7 +8,8 @@
   <!-- Global base styles -->
   <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}" />
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500&display=swap" rel="stylesheet">
-  
+
+
   <!-- Expose login status to JS -->
   <script>
     window.isUserLoggedIn = {{ 'true' if 'user_id' in session else 'false' }};
@@ -20,7 +21,10 @@
 <body>
   <header class="site-header">
     <div class="container">
-      <h1 class="logo">MUS-HUB</h1>
+      <h1 class="logo">
+        <!-- Updated here: url_for points to 'index' -->
+        <a href="{{ url_for('index') }}">MUS-HUB</a>
+      </h1>
 
       <!-- Hamburger button -->
       <div class="hamburger" id="hamburger" aria-label="Toggle navigation" tabindex="0" role="button">
@@ -157,5 +161,6 @@
   {% block extra_js %}{% endblock %}
 </body>
 </html>
+
 
 
