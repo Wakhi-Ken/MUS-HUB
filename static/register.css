@@ -1,317 +1,334 @@
+/* === CSS ROOT VARIABLES === */
 :root {
-    --background-color: rgba(26, 26, 46, 0.7);
-    --color: #ffffff;
-    --primary-color: #0f3460;
-    --accent-color: #0044ff;
-    --glass-bg: rgba(255, 255, 255, 0.06);
-    --shadow-dark: rgba(0, 0, 0, 0.7);
-    --shadow-light: rgba(255, 255, 255, 0.04);
-    --font-family: 'Poppins', sans-serif;
-  }
-  
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-  
-  html {
-    scroll-behavior: smooth;
-  }
-  
-  body {
-    font-family: var(--font-family);
-    background-image:
-      linear-gradient(var(--background-color), var(--background-color)),
-      url('https://images.unsplash.com/uploads/1412282232015a06e258a/4bdd2a58?fm=jpg&q=60&w=3000');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-blend-mode: multiply;
-    color: var(--color);
-    min-height: 100vh;
-    padding: 20px 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    animation: fadeIn 1s ease-in-out;
-    flex-direction: column;
-    overflow-y: auto;
-  }
-  
-  .container {
-    position: relative;
-    z-index: 2;
-    animation: slideUp 1.2s ease-out forwards;
-  }
-  
-  .register-container {
-    position: relative;
-    width: 22.5rem;
-  }
-  
-  .form-container {
-    background: var(--glass-bg);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
-    box-shadow: 0 0 40px rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(20px);
-    padding: 2.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1.2rem;
-    transform: scale(0.95);
-    transition: transform 0.3s ease;
-  }
-  
-  .form-container:hover {
-    transform: scale(1);
-  }
-  
-  .form-container h1 {
-    font-size: 2.5rem;
-    text-align: center;
-    margin-bottom: 0.5rem;
-    color: var(--accent-color);
-    animation: pulse 2s infinite alternate;
-  }
-  
-  .opacity {
-    opacity: 0.7;
-    text-align: center;
-    margin-bottom: 2rem;
-    font-size: 1rem;
-    line-height: 1.3;
-  }
-  
-  input[type="text"],
-  input[type="email"],
-  input[type="password"],
-  select {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 8px;
-    color: white;
-    font-size: 16px;
-    outline: none;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(10px);
-    letter-spacing: 0.5px;
-  }
-  
-  input[type="text"],
-  input[type="email"],
-  select {
-    width: 100%;
-    padding: 14px;
-    margin: 0.5rem 0 1rem 0;
-  }
-  
-  .password-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 1rem;
-  }
-  
-  .password-row input[type="password"] {
-    flex: 1;
-    padding: 14px;
-    margin: 0.5rem 0 1rem 0;
-  }
-  
-  input::placeholder,
-  select:invalid {
-    color: rgba(255, 255, 255, 0.5);
-  }
-  
-  input:focus,
-  select:focus {
-    border-color: var(--accent-color);
-    box-shadow: 0 0 12px var(--accent-color);
-    animation: glow 0.6s ease-in-out;
-  }
-  
-  /* Toggle password button styling */
-  #togglePassword,
-  #toggleConfirmPassword {
-    padding: 12px 16px;
-    font-size: 0.9rem;
-    font-weight: 700;
-    border: none;
-    border-radius: 8px;
-    background: var(--accent-color);
-    color: white;
-    cursor: pointer;
-    user-select: none;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    white-space: nowrap;
-    margin-top: 0.5rem;
-    /* vertically center with input */
-    align-self: flex-start;
-  }
-  
-  #togglePassword:hover,
-  #toggleConfirmPassword:hover {
-    background: #0033cc;
-    transform: scale(1.05);
-  }
-  
-  /* Adjust toggle button vertical alignment */
-  .password-row button {
-    margin-top: 0;
-    height: 48px; /* same as input height approx */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  /* Submit button */
-  button[type="submit"] {
-    width: 100%;
-    padding: 14px;
-    border: none;
-    border-radius: 8px;
-    font-size: 18px;
-    font-weight: bold;
-    letter-spacing: 1.2px;
-    background: linear-gradient(to right, var(--primary-color), var(--accent-color));
-    color: white;
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    user-select: none;
-  }
-  
-  button[type="submit"]:hover,
-  button[type="submit"]:focus {
-    transform: scale(1.05);
-    box-shadow: 0 0 20px var(--accent-color);
-  }
-  
-  .flashes {
-    list-style: none;
-    text-align: center;
-    margin-top: 1rem;
-    padding: 0;
-  }
-  
-  .flashes li {
-    background: rgba(255, 0, 0, 0.1);
-    border: 1px solid rgba(30, 2, 151, 0.2);
-    color: #ffffff;
-    padding: 10px;
-    margin: 5px 0;
-    border-radius: 6px;
-    animation: slideFadeIn 0.5s ease forwards;
-  }
-  
-  .circle {
-    position: absolute;
-    width: 8rem;
-    height: 8rem;
-    background: radial-gradient(circle at center, var(--accent-color), transparent);
-    border-radius: 50%;
-    z-index: 0;
-    animation: float 6s ease-in-out infinite;
-  }
-  
-  .circle-one {
-    top: 0;
-    left: 0;
-    transform: translate(-50%, -50%);
-    animation-delay: 1s;
-  }
-  
-  .circle-two {
-    bottom: 0;
-    right: 0;
-    transform: translate(50%, 50%);
-    animation-delay: 2s;
-  }
-  
-  /* Animations */
-  @keyframes fadeIn {
-    from {
+  --background-color: rgba(26, 26, 46, 0.7); /* Background color with transparency */
+  --color: #ffffff; /* Default text color (white) */
+  --primary-color: #0f3460; /* Dark blue primary color */
+  --accent-color: #0044ff; /* Bright accent color (used for highlights/buttons) */
+  --glass-bg: rgba(255, 255, 255, 0.06); /* Light transparent glass-like background */
+  --shadow-dark: rgba(0, 0, 0, 0.7); /* Dark shadow for depth */
+  --shadow-light: rgba(255, 255, 255, 0.04); /* Soft light shadow */
+  --font-family: 'Poppins', sans-serif; /* Clean modern font */
+}
+
+/* === GLOBAL RESET === */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Smooth scrolling behavior on links */
+html {
+  scroll-behavior: smooth;
+}
+
+/* === MAIN BODY STYLING === */
+body {
+  font-family: var(--font-family);
+  background-image:
+    linear-gradient(var(--background-color), var(--background-color)), /* Overlay dark background */
+    url('https://images.unsplash.com/uploads/1412282232015a06e258a/4bdd2a58?fm=jpg&q=60&w=3000'); /* Background image */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-blend-mode: multiply; /* Blend image and dark overlay */
+  color: var(--color); /* Use text color from root */
+  min-height: 100vh;
+  padding: 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  overflow-y: auto;
+  animation: fadeIn 1s ease-in-out; /* Fade in on page load */
+}
+
+/* Container with animation */
+.container {
+  position: relative;
+  z-index: 2;
+  animation: slideUp 1.2s ease-out forwards;
+}
+
+/* Specific container for registration box */
+.register-container {
+  position: relative;
+  width: 22.5rem;
+}
+
+/* === FORM BOX STYLING === */
+.form-container {
+  background: var(--glass-bg); /* Glassmorphic effect */
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
+  border-radius: 15px;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.4); /* Outer shadow */
+  backdrop-filter: blur(20px); /* Blur behind element */
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  transform: scale(0.95); /* Initial zoom */
+  transition: transform 0.3s ease;
+}
+
+/* Form zooms in slightly on hover */
+.form-container:hover {
+  transform: scale(1);
+}
+
+/* Title inside form */
+.form-container h1 {
+  font-size: 2.5rem;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  color: var(--accent-color);
+  animation: pulse 2s infinite alternate;
+}
+
+/* Optional subtitle or instructions */
+.opacity {
+  opacity: 0.7;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 1rem;
+  line-height: 1.3;
+}
+
+/* === INPUT FIELDS === */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  color: white;
+  font-size: 16px;
+  outline: none;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  letter-spacing: 0.5px;
+}
+
+/* Padding and margin for inputs */
+input[type="text"],
+input[type="email"],
+select {
+  width: 100%;
+  padding: 14px;
+  margin: 0.5rem 0 1rem 0;
+}
+
+/* === PASSWORD FIELD WITH TOGGLE === */
+.password-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+
+.password-row input[type="password"] {
+  flex: 1;
+  padding: 14px;
+  margin: 0.5rem 0 1rem 0;
+}
+
+/* Placeholder styling */
+input::placeholder,
+select:invalid {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Focus glow effect on inputs */
+input:focus,
+select:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 12px var(--accent-color);
+  animation: glow 0.6s ease-in-out;
+}
+
+/* === TOGGLE PASSWORD BUTTON === */
+#togglePassword,
+#toggleConfirmPassword {
+  padding: 12px 16px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 8px;
+  background: var(--accent-color);
+  color: white;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  white-space: nowrap;
+  margin-top: 0.5rem;
+  align-self: flex-start;
+}
+
+/* Button hover effect */
+#togglePassword:hover,
+#toggleConfirmPassword:hover {
+  background: #0033cc;
+  transform: scale(1.05);
+}
+
+/* Align button with input field */
+.password-row button {
+  margin-top: 0;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* === SUBMIT BUTTON === */
+button[type="submit"] {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: bold;
+  letter-spacing: 1.2px;
+  background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+  color: white;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  user-select: none;
+}
+
+button[type="submit"]:hover,
+button[type="submit"]:focus {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px var(--accent-color);
+}
+
+/* === FLASH MESSAGES (like error or success alerts) === */
+.flashes {
+  list-style: none;
+  text-align: center;
+  margin-top: 1rem;
+  padding: 0;
+}
+
+.flashes li {
+  background: rgba(255, 0, 0, 0.1); /* Light red background */
+  border: 1px solid rgba(30, 2, 151, 0.2);
+  color: #ffffff;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 6px;
+  animation: slideFadeIn 0.5s ease forwards;
+}
+
+/* === FLOATING CIRCLES BACKGROUND === */
+.circle {
+  position: absolute;
+  width: 8rem;
+  height: 8rem;
+  background: radial-gradient(circle at center, var(--accent-color), transparent);
+  border-radius: 50%;
+  z-index: 0;
+  animation: float 6s ease-in-out infinite;
+}
+
+.circle-one {
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+  animation-delay: 1s;
+}
+
+.circle-two {
+  bottom: 0;
+  right: 0;
+  transform: translate(50%, 50%);
+  animation-delay: 2s;
+}
+
+/* === ANIMATIONS === */
+@keyframes fadeIn {
+  from {
       opacity: 0;
       transform: translateY(10%);
-    }
-    to {
+  }
+  to {
       opacity: 1;
       transform: translateY(0);
-    }
   }
-  
-  @keyframes slideUp {
-    from {
+}
+
+@keyframes slideUp {
+  from {
       transform: translateY(50px);
       opacity: 0;
-    }
-    to {
+  }
+  to {
       transform: translateY(0);
       opacity: 1;
-    }
   }
-  
-  @keyframes pulse {
-    0% {
+}
+
+@keyframes pulse {
+  0% {
       text-shadow: 0 0 0 transparent;
-    }
-    100% {
+  }
+  100% {
       text-shadow: 0 0 15px var(--accent-color);
-    }
   }
-  
-  @keyframes glow {
-    0% {
+}
+
+@keyframes glow {
+  0% {
       box-shadow: 0 0 5px var(--accent-color);
-    }
-    100% {
-      box-shadow: 0 0 15px var(--accent-color);
-    }
   }
-  
-  @keyframes slideFadeIn {
-    from {
+  100% {
+      box-shadow: 0 0 15px var(--accent-color);
+  }
+}
+
+@keyframes slideFadeIn {
+  from {
       opacity: 0;
       transform: translateY(20px);
-    }
-    to {
+  }
+  to {
       opacity: 1;
       transform: translateY(0);
-    }
   }
-  
-  @keyframes float {
-    0%,
-    100% {
+}
+
+@keyframes float {
+  0%, 100% {
       transform: translate(0, 0);
-    }
-    50% {
-      transform: translate(10px, -10px);
-    }
   }
-  
-  /* Responsive */
-  @media (max-width: 480px) {
-    .register-container {
+  50% {
+      transform: translate(10px, -10px);
+  }
+}
+
+/* === RESPONSIVE DESIGN FOR SMALL SCREENS === */
+@media (max-width: 480px) {
+  .register-container {
       width: 90vw;
-    }
-  
-    .form-container {
+  }
+
+  .form-container {
       padding: 2rem 1.5rem;
-    }
-  
-    button[type="submit"] {
+  }
+
+  button[type="submit"] {
       font-size: 1.1rem;
       padding: 12px;
-    }
-  
-    #togglePassword,
-    #toggleConfirmPassword {
+  }
+
+  #togglePassword,
+  #toggleConfirmPassword {
       padding: 10px 14px;
       font-size: 0.85rem;
-    }
   }
+}
+
   
   
   

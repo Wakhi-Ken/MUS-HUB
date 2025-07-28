@@ -1,21 +1,25 @@
+/* Root Variables - Define theme colors and reusable values */
 :root {
-    --background: #1a1a2e;
-    --color: #ffffff;
-    --primary-color: #0f3460;
-    --accent-color: #0b0885;
-    --glass-bg: rgba(255, 255, 255, 0.05);
+    --background: #1a1a2e;            /* Dark background */
+    --color: #ffffff;                /* Text color */
+    --primary-color: #0f3460;        /* Primary theme color */
+    --accent-color: #0b0885;         /* Accent color (used on hover, active states) */
+    --glass-bg: rgba(255, 255, 255, 0.05); /* Glass effect background */
 }
 
+/* Global Reset and Box Model */
 * {
-    box-sizing: border-box;
+    box-sizing: border-box; /* Includes padding & border in total width/height */
     margin: 0;
     padding: 0;
 }
 
+/* Smooth scrolling when clicking anchor links */
 html {
     scroll-behavior: smooth;
 }
 
+/* Body Styling */
 body {
     font-family: "Poppins", sans-serif;
     background: linear-gradient(135deg, var(--background), var(--primary-color));
@@ -27,12 +31,12 @@ body {
     padding: 20px 0;
 }
 
-/* Header */
+/* ======================= Header ======================= */
 .site-header {
     width: 100%;
-    background-color: rgba(20, 17, 51, 0.85);
+    background-color: rgba(20, 17, 51, 0.85); /* Semi-transparent */
     box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-    position: sticky;
+    position: sticky;  /* Sticks to top on scroll */
     top: 0;
     z-index: 100;
     padding: 15px 0;
@@ -48,7 +52,7 @@ body {
     gap: 20px;
 }
 
-/* Logo */
+/* ======================= Logo ======================= */
 .logo {
     font-size: 2rem;
     font-weight: 700;
@@ -56,7 +60,15 @@ body {
     flex-shrink: 0;
 }
 
-/* Navigation */
+.logo a {
+    color: inherit;
+    text-decoration: none;
+}
+.logo a:hover {
+    text-decoration: underline;
+}
+
+/* ======================= Navigation ======================= */
 nav {
     flex: 1;
 }
@@ -68,7 +80,6 @@ nav {
     gap: 20px;
     padding-left: 0;
     margin: 0;
-    flex-wrap: nowrap;
     transition: max-height 0.3s ease;
     overflow: hidden;
     max-height: none;
@@ -78,7 +89,6 @@ nav {
     position: relative;
 }
 
-/* Nav links */
 .nav-list li a {
     color: var(--color);
     text-decoration: none;
@@ -87,26 +97,24 @@ nav {
     padding: 8px 12px;
     border-radius: 8px;
     transition: color 0.3s ease, background-color 0.3s ease;
-    display: inline-block;
 }
 
 .nav-list li a:hover,
 .nav-list li a:focus {
     text-decoration: underline;
     color: var(--accent-color);
-    background-color: rgba(255 255 255 / 0.1);
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
-/* Search container */
+/* ======================= Search Box ======================= */
 .search-container {
     display: flex;
     align-items: center;
     cursor: pointer;
     position: relative;
-    outline: none;
     border-radius: 8px;
     padding: 6px 10px;
-    background: rgba(255 255 255 / 0.1);
+    background: rgba(255, 255, 255, 0.1);
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
     user-select: none;
     gap: 8px;
@@ -115,7 +123,7 @@ nav {
 .search-container:hover,
 .search-container:focus-visible,
 .search-container.active {
-    background-color: rgba(255 255 255 / 0.2);
+    background-color: rgba(255, 255, 255, 0.2);
     box-shadow: 0 0 8px var(--accent-color);
 }
 
@@ -124,7 +132,6 @@ nav {
     width: 20px;
     height: 20px;
     transition: fill 0.3s ease;
-    flex-shrink: 0;
 }
 
 .search-container:hover .search-icon,
@@ -133,6 +140,7 @@ nav {
     fill: var(--accent-color);
 }
 
+/* Search input field - hidden until active */
 #search-input {
     width: 0;
     opacity: 0;
@@ -145,11 +153,8 @@ nav {
     font-weight: 600;
     transition: width 0.3s ease, opacity 0.3s ease;
     backdrop-filter: blur(12px);
-    outline: none;
     pointer-events: none;
-    white-space: nowrap;
-    min-width: 0;
-    caret-color: var(--accent-color);
+    outline: none;
 }
 
 .search-container.active #search-input {
@@ -158,13 +163,12 @@ nav {
     pointer-events: auto;
 }
 
-/* Hamburger */
+/* ======================= Hamburger Menu (Mobile) ======================= */
 .hamburger {
     display: none;
     flex-direction: column;
     gap: 6px;
     cursor: pointer;
-    flex-shrink: 0;
 }
 
 .hamburger span {
@@ -175,6 +179,7 @@ nav {
     transition: all 0.3s ease;
 }
 
+/* Animation when active */
 .hamburger.active span:nth-child(1) {
     transform: rotate(45deg) translate(5px, 5px);
 }
@@ -185,34 +190,32 @@ nav {
     transform: rotate(-45deg) translate(5px, -5px);
 }
 
-/* Main content */
+/* ======================= Main Content ======================= */
 main.container {
     flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
     align-items: center;
     padding: 20px 15px;
     max-width: 1000px;
     margin: 0 auto;
-    box-sizing: border-box;
     gap: 25px;
 }
 
-/* Footer */
+/* ======================= Footer ======================= */
 .site-footer {
     width: 100%;
     padding: 15px 0;
     text-align: center;
     background-color: rgba(20, 35, 77, 0.85);
     font-size: 0.9rem;
-    user-select: none;
-    box-shadow: 0 -2px 8px rgba(0,0,0,0.3);
-    margin-top: 30px;
     color: var(--color);
+    margin-top: 30px;
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.3);
+    user-select: none;
 }
 
-/* Flashes */
+/* ======================= Flash Messages ======================= */
 .flashes {
     list-style: none;
     text-align: center;
@@ -230,7 +233,7 @@ main.container {
     animation: slideFadeIn 0.5s ease forwards;
 }
 
-/* Animations */
+/* ======================= Animations ======================= */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -264,7 +267,7 @@ main.container {
     }
 }
 
-/* Responsive */
+/* ======================= Responsive Design ======================= */
 @media (max-width: 1024px) {
     main.container {
         max-width: 90%;
@@ -276,13 +279,11 @@ main.container {
     .site-header .container {
         flex-wrap: wrap;
         gap: 10px;
-        justify-content: space-between;
     }
 
     .nav-list {
         flex-direction: column;
         align-items: center;
-        gap: 12px;
         width: 100%;
         max-height: 0;
         overflow: hidden;
@@ -290,7 +291,7 @@ main.container {
     }
 
     .nav-list.active {
-        max-height: 500px; /* Enough for nav items to show */
+        max-height: 500px; /* Expand when open */
     }
 
     .nav-list li {
@@ -308,12 +309,10 @@ main.container {
         display: flex;
     }
 
-    /* Search input expands full width on mobile */
     #search-input {
         width: 100% !important;
         opacity: 1 !important;
         pointer-events: auto !important;
-        margin-left: 0;
         margin-top: 8px;
     }
 
@@ -329,24 +328,16 @@ main.container {
     }
 }
 
-/* Hide nav-list initially if js-hidden */
+/* Show/hide nav with JS classes */
 .nav-list.js-hidden {
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease;
 }
 
-/* Show nav-list smoothly */
 .nav-list.js-visible {
     opacity: 1;
     pointer-events: auto;
 }
-.logo a {
-    color: inherit;      /* Keep text color */
-    text-decoration: none; /* Remove underline */
-  }
-  
-  .logo a:hover {
-    text-decoration: underline; /* Or some hover effect */
-  }
+
   

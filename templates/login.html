@@ -1,14 +1,20 @@
 {% extends "base.html" %}
+{# Extends the base layout for consistent site structure #}
+
 {% block title %}MUS-HUB | Login{% endblock %}
+{# Sets the page title #}
 
 {% block extra_css %}
+  {# Include login page specific styles #}
   <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+  {# Import Google Fonts for typography #}
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
 <div class="container">
   <div class="login-container">
+    {# Decorative circles for background style #}
     <div class="circle circle-one"></div>
     <div class="circle circle-two"></div>
 
@@ -16,22 +22,28 @@
       <h1>Welcome back to MUS-HUB!</h1>
       <p class="opacity">We’re happy to have you here. Please log in to continue.</p>
 
+      {# Login form posts to 'login' route #}
       <form action="{{ url_for('login') }}" method="post">
+        {# Username input field, required #}
         <input type="text" name="username" placeholder="Username" required>
 
+        {# Password input with toggle button for show/hide #}
         <div class="password-row">
           <input type="password" name="password" placeholder="Password" id="password" required>
           <button type="button" id="togglePassword" aria-label="Show or hide password">Show</button>
         </div>
 
+        {# Links for registration and forgot password #}
         <div class="register-forget">
           <a href="{{ url_for('register') }}">Register</a>
           <a href="#">Forgot Password?</a>
         </div>
 
+        {# Submit button for login #}
         <button type="submit">Login</button>
       </form>
 
+      {# Display flash messages like errors or notifications #}
       {% with messages = get_flashed_messages() %}
         {% if messages %}
           <ul class="flashes">
@@ -45,6 +57,7 @@
   </div>
 </div>
 
+{# Script to toggle password visibility on button click #}
 <script>
   const togglePassword = document.getElementById('togglePassword');
   const passwordInput = document.getElementById('password');
@@ -56,4 +69,5 @@
   });
 </script>
 {% endblock %}
+
 

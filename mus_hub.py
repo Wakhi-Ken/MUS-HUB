@@ -1,12 +1,15 @@
-import sqlite3
+import sqlite3  # Standard library for lightweight SQL database integration
 
 def create_database_and_table():
     try:
-        # Connect to SQLite database (it will create if it doesn't exist)
+        # Establish connection to the SQLite database.
+        # If 'mus_hub.db' doesn't exist, it will be created in the current directory.
         connection = sqlite3.connect('mus_hub.db')
         cursor = connection.cursor()
 
-        # Create User table
+        # Create the 'User' table.
+        # 'Email' is marked UNIQUE to prevent duplicate registrations.
+        # 'Role' can be used for differentiating between admin, artist, listener, etc.
         cursor.execute("""
         CREATE TABLE IF NOT EXISTS User (
             UserID INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -17,7 +20,9 @@ def create_database_and_table():
         )
         """)
         
-        # Create Content table
+        # Create the 'Content' table.
+        # Stores uploaded media with a reference to the uploading user.
+        # 'UploadDate' defaults to the current timestamp, which is useful for sorting.
         cursor.execute("""
         CREATE TABLE IF NOT EXISTS Content (
             ContentID INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -28,7 +33,9 @@ def create_database_and_table():
         )
         """)
 
-        # Create Comment table
+        # Create the 'Comment' table.
+        # Tracks user comments per content.
+        # Includes timestamps and foreign key relationships to both user and content.
         cursor.execute("""
         CREATE TABLE IF NOT EXISTS Comment (
             CommentID INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -44,12 +51,15 @@ def create_database_and_table():
         print("Tables 'User', 'Content', and 'Comment' created successfully.")
 
     except sqlite3.Error as e:
+        # Catch and print any database-related errors.
         print(f"Error: {e}")
     finally:
+        # Ensure that the connection is properly closed even if an error occurs.
         if connection:
             cursor.close()
             connection.close()
             print("SQLite connection is closed.")
 
+# Entry point to ensure this function only runs when the script is executed directly.
 if __name__ == "__main__":
     create_database_and_table()

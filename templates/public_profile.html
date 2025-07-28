@@ -1,39 +1,58 @@
 {% extends "base.html" %}
+{# Extend base template for consistent site layout #}
+
 {% block title %}{{ user.Username }} | MUS-HUB{% endblock %}
+{# Dynamic page title showing the username and site name #}
 
 {% block content %}
 <div class="public-profile-container">
+  {# Header showing whose profile this is #}
   <div class="public-header">{{ user.Username }}'s Public Profile</div>
+
+  {# Display the user’s role (Musician, Listener, etc.) #}
   <div class="user-role">Role: {{ user.Role }}</div>
+
+  {# Show user bio or fallback text if bio is empty #}
   <div class="user-bio">
     {{ user.Bio or "No bio provided yet." }}
   </div>
 
   <div class="uploads-section">
     <h3>Uploads</h3>
+
+    {# Check if user has uploads to show #}
     {% if uploads %}
+      {# Loop through each uploaded content item #}
       {% for content in uploads %}
         <div class="upload-item">
           <p><strong>File:</strong> {{ content.FilePath }}</p>
           <p><small>Uploaded on: {{ content.UploadDate.strftime('%Y-%m-%d %H:%M:%S') }}</small></p>
 
+          {# Extract file extension to determine media type #}
           {% set ext = content.FilePath.split('.')[-1].lower() %}
+
+          {# Display audio player if file is audio format #}
           {% if ext in ['mp3', 'wav', 'ogg'] %}
             <audio controls>
               <source src="{{ url_for('static', filename='uploads/' ~ content.FilePath) }}" type="audio/{{ ext }}">
               Your browser does not support audio playback.
             </audio>
+
+          {# Display video player if file is video format #}
           {% elif ext in ['mp4', 'webm'] %}
             <video controls width="100%">
               <source src="{{ url_for('static', filename='uploads/' ~ content.FilePath) }}" type="video/{{ ext }}">
               Your browser does not support video playback.
             </video>
+
+          {# Fallback message for unsupported file types #}
           {% else %}
             <p>Preview not available for this file type.</p>
           {% endif %}
         </div>
       {% endfor %}
     {% else %}
+      {# Inform if user hasn’t uploaded any files yet #}
       <p>This user hasn’t uploaded anything yet.</p>
     {% endif %}
   </div>
@@ -41,5 +60,6 @@
 {% endblock %}
 
 {% block extra_css %}
+  {# Link to CSS specific for styling public profile page #}
   <link rel="stylesheet" href="{{ url_for('static', filename='public_profile.css') }}">
 {% endblock %}

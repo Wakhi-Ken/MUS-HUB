@@ -213,6 +213,24 @@ h2 {
   /* No delay, disappear immediately over 1 sec */
 }
 
+ /* Icon styles */
+ .icon {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+  vertical-align: middle;
+  margin-right: 6px;
+  transition: transform 0.3s ease;
+  display: inline-block;
+}
+.icon.animate {
+  animation: iconBounce 0.5s ease forwards;
+}
+@keyframes iconBounce {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-6px) scale(1.2); }
+  100% { transform: translateY(0) scale(1); }
+}
 @keyframes slideFadeOut {
   from {
     opacity: 1;

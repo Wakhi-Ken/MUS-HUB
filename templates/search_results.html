@@ -1,7 +1,11 @@
 {% extends "base.html" %}
+{# Inherit from base template for consistent layout #}
+
 {% block title %}Search Results for "{{ query }}" | MUS-HUB{% endblock %}
+{# Dynamic page title showing the search query #}
 
 {% block extra_css %}
+  {# Link to CSS specific for search results page styling #}
   <link rel="stylesheet" href="{{ url_for('static', filename='search_results.css') }}">
 {% endblock %}
 
@@ -11,19 +15,31 @@
 
     <section class="uploads-section">
       <h3>Users and their uploads</h3>
+
+      {# Check if there are any users matching the search #}
       {% if users %}
         <ul>
+          {# Loop through each user found #}
           {% for user in users %}
             <li>
+              {# Link to the public profile of the user #}
               <a href="{{ url_for('public_profile', user_id=user.UserID) }}" class="accent-link">
                 {{ user.Username }} ({{ user.Role }})
               </a>
 
+              {# 
+                 Filter uploads list to only those belonging to current user.
+                 'selectattr' checks upload.user.UserID matches user.UserID 
+              #}
               {% set user_uploads = uploads | selectattr("user.UserID", "equalto", user.UserID) | list %}
+
+              {# Show uploads for this user if any exist #}
               {% if user_uploads %}
                 <ul>
+                  {# Loop over each upload for the user #}
                   {% for upload in user_uploads %}
                     <li>
+                      {# Link to the uploader’s public profile (could be the same user) #}
                       <a href="{{ url_for('public_profile', user_id=upload.user.UserID) }}" class="accent-link">
                         {{ upload.FilePath }}
                       </a>
@@ -31,15 +47,16 @@
                   {% endfor %}
                 </ul>
               {% else %}
+                {# Inform if user has no uploads #}
                 <p><em>No uploads for this user.</em></p>
               {% endif %}
             </li>
           {% endfor %}
         </ul>
       {% else %}
+        {# Inform if no users were found matching the query #}
         <p>No users found.</p>
       {% endif %}
     </section>
   </div>
 {% endblock %}
-

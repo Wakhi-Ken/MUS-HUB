@@ -85,7 +85,7 @@ The project follows an **Agile development process**:
 ### Installation
 
 ```bash
-git clone https://github.com/your-username/mus-hub.git
+git clone https://github.com/Wakhi-Ken/mus-hub.git
 cd mus-hub
 python -m venv venv
 source venv/bin/activate  # or venv\Scripts\activate on Windows
