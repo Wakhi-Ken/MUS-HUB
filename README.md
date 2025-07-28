@@ -51,17 +51,14 @@ While Eswatini highly values its arts and culture, it lacks infrastructure and d
 ## 📸 Screenshots
 
 ### 🏠 Home Page
-![Home Page](<img width="1366" height="679" alt="image" src="https://github.com/user-attachments/assets/573286b0-ff1e-417e-8df5-2200c9aac760" />
-), (<img width="1365" height="674" alt="image" src="https://github.com/user-attachments/assets/12cc0f57-e05c-466b-8ba2-851367893e42" />
-)
+![Home Page 1](https://github.com/user-attachments/assets/573286b0-ff1e-417e-8df5-2200c9aac760)
+![Home Page 2](https://github.com/user-attachments/assets/12cc0f57-e05c-466b-8ba2-851367893e42)
 
 ### 👤 Profile Page
-![Profile Page](<img width="1357" height="657" alt="image" src="https://github.com/user-attachments/assets/14ae0954-2148-4bb4-822f-57ede6c98927" />
-)
+![Profile Page](https://github.com/user-attachments/assets/14ae0954-2148-4bb4-822f-57ede6c98927)
 
 ### ⬆️ Upload Page
-![Upload Page](<img width="1364" height="670" alt="image" src="https://github.com/user-attachments/assets/f62aad22-522f-4535-b95c-0e90b9ecc2a5" />
-)
+![Upload Page](https://github.com/user-attachments/assets/f62aad22-522f-4535-b95c-0e90b9ecc2a5)
 
 
 ---
