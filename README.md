@@ -3,6 +3,7 @@
 **Empowering Eswatini's music creators through a dedicated digital platform.**
 
 ---
+## link for MUS-HUB: https://mus-hub.onrender.com/
 
 ## 📌 About the Project
 
