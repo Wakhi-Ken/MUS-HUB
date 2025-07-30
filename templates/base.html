@@ -1,55 +1,44 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
-  <!-- Basic page settings -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  
-  <!-- Title block to be replaced by each child template -->
   <title>{% block title %}MUS-HUB{% endblock %}</title>
 
-  <!-- Global CSS stylesheet for base layout and styles -->
+  <!-- Base styles -->
   <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}" />
-  
-  <!-- Import custom Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500&display=swap" rel="stylesheet">
 
-  <!-- Make login status available to JavaScript -->
   <script>
     window.isUserLoggedIn = {{ 'true' if 'user_id' in session else 'false' }};
   </script>
 
-  <!-- Extra page-specific CSS from other templates -->
   {% block extra_css %}{% endblock %}
 </head>
 
 <body>
-  <!-- Website Header and Navigation -->
   <header class="site-header">
     <div class="container">
-      <!-- Site logo that links to home page -->
-      <h1 class="logo">
-        <a href="{{ url_for('index') }}">MUS-HUB</a>
-      </h1>
+      <h1 class="logo"><a href="{{ url_for('index') }}">MUS-HUB</a></h1>
 
-      <!-- Hamburger menu icon for small screens -->
       <div class="hamburger" id="hamburger" aria-label="Toggle navigation" tabindex="0" role="button">
-        <span></span>
-        <span></span>
-        <span></span>
+        <span></span><span></span><span></span>
       </div>
 
-      <!-- Main navigation bar -->
       <nav>
         <ul class="nav-list {% if 'user_id' in session %}js-hidden{% endif %}" id="nav-list">
           {% if 'user_id' in session %}
-            <!-- Links shown only when user is logged in -->
+            {% set current_user = User.query.get(session['user_id']) %}
             <li><a href="/">Home</a></li>
             <li><a href="/upload">Upload</a></li>
             <li><a href="{{ url_for('profile') }}">Profile</a></li>
+
+            {% if current_user and current_user.Role == 'admin' %}
+              <li><a href="{{ url_for('admin_dashboard') }}">Admin</a></li>
+            {% endif %}
+
             <li><a href="{{ url_for('logout') }}">Logout</a></li>
 
-            <!-- Search input shown in navigation -->
             <li class="search-container" id="search-container" tabindex="0" role="button" aria-label="Toggle search">
               <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <path d="M15.5 14h-.79l-.28-.27a6.471 6.471 0 001.48-5.34C15.14 5.59 12.53 3 9.25 3S3.36 5.59 3.36 8.39c0 2.79 2.6 5.39 5.89 5.39 1.31 0 2.5-.51 3.38-1.34l.27.28v.79l4.25 4.25 1.5-1.5-4.25-4.25zm-6.25 0c-1.8 0-3.25-1.45-3.25-3.25S7.45 7.5 9.25 7.5 12.5 8.95 12.5 10.75 11.05 14 9.25 14z"/>
@@ -62,10 +51,10 @@
                 aria-label="Search users or uploads"
                 autocomplete="off"
                 onkeydown="if(event.key === 'Enter'){ performSearch(); }"
+                style="display: none;"
               />
             </li>
           {% else %}
-            <!-- Links shown when user is not logged in -->
             <li><a href="{{ url_for('login') }}">Login</a></li>
             <li><a href="{{ url_for('register') }}">Register</a></li>
           {% endif %}
@@ -73,7 +62,6 @@
       </nav>
     </div>
 
-    <!-- Flash messages for user feedback -->
     {% with messages = get_flashed_messages() %}
       {% if messages %}
         <ul class="flashes">
@@ -85,103 +73,85 @@
     {% endwith %}
   </header>
 
-  <!-- Main content block to be replaced by child templates -->
   <main class="container">
     {% block content %}{% endblock %}
   </main>
 
-  <!-- Page footer -->
   <footer class="site-footer">
     <p>&copy; 2025 MUS-HUB</p>
   </footer>
 
-  <!-- JavaScript for responsive nav and search functionality -->
   <script>
-    // When page is ready, fix nav visibility
     document.addEventListener('DOMContentLoaded', () => {
       const navList = document.getElementById('nav-list');
+      const hamburger = document.getElementById('hamburger');
+      const searchContainer = document.getElementById('search-container');
+      const searchInput = document.getElementById('search-input');
+
       if (window.isUserLoggedIn === true || window.isUserLoggedIn === 'true') {
         navList.classList.remove('js-hidden');
         navList.classList.add('js-visible');
       }
-    });
 
-    // Handle hamburger menu toggle
-    const hamburger = document.getElementById('hamburger');
-    const navList = document.getElementById('nav-list');
-    const searchContainer = document.getElementById('search-container');
-    const searchInput = document.getElementById('search-input');
-
-    function toggleMenu() {
-      navList.classList.toggle('active');
-      hamburger.classList.toggle('active');
-      if (searchInput && searchInput.style.display === 'block') {
-        searchInput.style.display = 'none';
-      }
-    }
-
-    // Open nav on hamburger click or keyboard
-    hamburger.addEventListener('click', toggleMenu);
-    hamburger.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        toggleMenu();
-      }
-    });
-
-    // Close nav when a link is clicked
-    document.querySelectorAll('.nav-list a').forEach(link => {
-      link.addEventListener('click', () => {
-        if (navList.classList.contains('active')) {
-          toggleMenu();
-        }
-      });
-    });
-
-    // Show/hide search input on click or keypress
-    if (searchContainer) {
-      searchContainer.addEventListener('click', () => {
-        if (searchInput.style.display === 'block') {
+      function toggleMenu() {
+        navList.classList.toggle('active');
+        hamburger.classList.toggle('active');
+        if (searchInput && searchInput.style.display === 'block') {
           searchInput.style.display = 'none';
-        } else {
-          searchInput.style.display = 'block';
-          searchInput.focus();
         }
+      }
+
+      if (hamburger) {
+        hamburger.addEventListener('click', toggleMenu);
+        hamburger.addEventListener('keypress', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') toggleMenu();
+        });
+      }
+
+      document.querySelectorAll('.nav-list a').forEach(link => {
+        link.addEventListener('click', () => {
+          if (navList.classList.contains('active')) toggleMenu();
+        });
       });
 
-      searchContainer.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
+      if (searchContainer && searchInput) {
+        searchContainer.addEventListener('click', () => {
           if (searchInput.style.display === 'block') {
             searchInput.style.display = 'none';
           } else {
             searchInput.style.display = 'block';
             searchInput.focus();
           }
+        });
+
+        searchContainer.addEventListener('keypress', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            if (searchInput.style.display === 'block') {
+              searchInput.style.display = 'none';
+            } else {
+              searchInput.style.display = 'block';
+              searchInput.focus();
+            }
+          }
+        });
+
+        document.addEventListener('click', (e) => {
+          if (!searchContainer.contains(e.target)) {
+            searchInput.style.display = 'none';
+          }
+        });
+      }
+
+      window.performSearch = function() {
+        const query = searchInput.value.trim();
+        if (query.length > 0) {
+          window.location.href = `/search?q=${encodeURIComponent(query)}`;
         }
-      });
-    }
-
-    // Perform search when user presses Enter
-    function performSearch() {
-      const query = searchInput.value.trim();
-      if (query.length > 0) {
-        window.location.href = `/search?q=${encodeURIComponent(query)}`;
-      }
-    }
-
-    // Hide search input if clicked outside
-    document.addEventListener('click', (e) => {
-      if (searchContainer && !searchContainer.contains(e.target)) {
-        if (searchInput) searchInput.style.display = 'none';
-      }
+      };
     });
   </script>
 
-  <!-- Optional JS block for page-specific scripts -->
   {% block extra_js %}{% endblock %}
 </body>
 </html>
-
-
-
-

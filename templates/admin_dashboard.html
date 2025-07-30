@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Dashboard</title>
+  <!-- Link to your admin dashboard CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='admin_dash_board.css') }}" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Open+Sans&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <header class="site-header" role="banner">
+    <div class="container">
+      <div class="logo">
+        <a href="{{ url_for('index') }}">Admin Dashboard</a>
+      </div>
+
+      <nav role="navigation" aria-label="Main Navigation">
+        <ul class="nav-list js-hidden">
+          <li><a href="{{ url_for('index') }}">🏠 Home</a></li>
+          <li><a href="{{ url_for('profile') }}">👤 My Profile</a></li>
+          <li><a href="{{ url_for('upload_file') }}">⬆ Upload</a></li>
+          <li><a href="{{ url_for('logout') }}">🚪 Logout</a></li>
+        </ul>
+      </nav>
+
+      <button class="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="primary-navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Section Tabs -->
+  <nav class="admin-tabs" aria-label="Admin Sections">
+    <button type="button" class="section-tab active" data-target="users-section">Users</button>
+    <button type="button" class="section-tab" data-target="uploads-section">Uploads</button>
+    <button type="button" class="section-tab" data-target="comments-section">Comments</button>
+  </nav>
+
+  <main class="dashboard-container" role="main">
+
+    <section id="users-section" class="section" aria-labelledby="users-title">
+      <h2 id="users-title">Users</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>Role</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for user in users %}
+          <tr>
+            <td>{{ user.Username }}</td>
+            <td>{{ user.Role }}</td>
+            <td>
+              {% if user.UserID != session['user_id'] %}
+              <form method="post" action="{{ url_for('delete_user', target_user_id=user.UserID) }}">
+                <button class="admin-delete-btn" type="submit" title="Delete user {{ user.Username }}">Delete</button>
+              </form>
+              {% else %}
+              <em>Current Admin</em>
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
+
+    <section id="uploads-section" class="section" aria-labelledby="uploads-title" style="display:none;">
+      <h2 id="uploads-title">Uploads</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>User</th>
+            <th>File</th>
+            <th>Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for content in uploads %}
+          <tr>
+            <td>{{ content.user.Username }}</td>
+            <td>{{ content.FilePath }}</td>
+            <td>{{ content.UploadDate.strftime('%Y-%m-%d') }}</td>
+            <td>
+              <form method="post" action="{{ url_for('delete_upload', content_id=content.ContentID) }}">
+                <button class="admin-delete-btn" type="submit" title="Delete this upload">Delete</button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
+
+    <section id="comments-section" class="section" aria-labelledby="comments-title" style="display:none;">
+      <h2 id="comments-title">Comments</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>User</th>
+            <th>Comment</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for comment in comments %}
+          <tr>
+            <td>{{ comment.user.Username }}</td>
+            <td>{{ comment.CommentText }}</td>
+            <td>
+              <form method="post" action="{{ url_for('delete_comment', comment_id=comment.CommentID) }}">
+                <button class="admin-delete-btn" type="submit" title="Delete this comment">Delete</button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
+
+  </main>
+
+  <script>
+    const hamburger = document.querySelector('.hamburger');
+    const navList = document.querySelector('.nav-list');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navList.classList.toggle('active');
+
+      // Update aria-expanded for accessibility
+      const expanded = hamburger.getAttribute('aria-expanded') === 'true';
+      hamburger.setAttribute('aria-expanded', !expanded);
+    });
+
+    // Show nav if JS enabled (remove js-hidden class)
+    navList.classList.remove('js-hidden');
+
+    // Section tabs toggle logic
+    const tabs = document.querySelectorAll('.section-tab');
+    const sections = {
+      'users-section': document.getElementById('users-section'),
+      'uploads-section': document.getElementById('uploads-section'),
+      'comments-section': document.getElementById('comments-section'),
+    };
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => {
+          t.classList.remove('active');
+        });
+        tab.classList.add('active');
+
+        Object.values(sections).forEach(sec => sec.style.display = 'none');
+
+        const targetId = tab.getAttribute('data-target');
+        sections[targetId].style.display = 'block';
+      });
+    });
+  </script>
+
+</body>
+</html>
