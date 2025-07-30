@@ -106,7 +106,7 @@ nav {
     outline: none;
     border-radius: 8px;
     padding: 6px 10px;
-    background: rgba(255 255 255 / 0.1);
+    background: rgba(207, 207, 207, 0.1);
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
     user-select: none;
     gap: 8px;
@@ -115,7 +115,7 @@ nav {
 .search-container:hover,
 .search-container:focus-visible,
 .search-container.active {
-    background-color: rgba(255 255 255 / 0.2);
+    background-color: rgb(255, 255, 255);
     box-shadow: 0 0 8px var(--accent-color);
 }
 
@@ -139,7 +139,7 @@ nav {
     padding: 8px 14px;
     border-radius: 8px;
     border: none;
-    background: rgba(255, 255, 255, 0.15);
+    background: rgb(255, 255, 255);
     color: #ffffff;
     font-size: 1.1rem;
     font-weight: 600;
