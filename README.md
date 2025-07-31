@@ -3,7 +3,7 @@
 **Empowering Eswatini's music creators through a dedicated digital platform.**
 
 ---
-## link for MUS-HUB: https://mus-hub.onrender.com/
+## link for deployed MUS-HUB: https://mus-hub.onrender.com/
 
 ## 📌 About the Project
 
@@ -90,5 +90,5 @@ cd mus-hub
 python -m venv venv
 source venv/bin/activate  # or venv\Scripts\activate on Windows
 pip install -r requirements.txt
-flask run
+flask run (python ./app.py)
 
